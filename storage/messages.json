@@ -1,0 +1,10 @@
+{
+	"Messages": [
+		{
+			"id": 0,
+			"content": "Hello, World!",
+			"hasMedia": false,
+			"mediaLink": ""
+		}
+	]
+}
