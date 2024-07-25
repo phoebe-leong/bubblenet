@@ -11,7 +11,3 @@ This platform will hopefully grow to be usable, but is currently in it's most pr
 
 - Express v4.19.2
 - jsonfile v6.1.0
-
-## documentation
-
-In this I'll be documenting all my decisions, why I've decided to implement them, and how I've done so. Simple as that.
