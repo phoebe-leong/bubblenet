@@ -4,7 +4,8 @@
 			"id": 0,
 			"content": "Hello, World!",
 			"hasMedia": false,
-			"mediaLink": ""
+			"mediaLink": "",
+			"unixTimestamp": 0
 		}
 	]
 }
