@@ -5,7 +5,7 @@
 
 ```json
 {
-	"id": 0, // A unique number to differentiate it from every other message
+	"id": "", // A unique string to differentiate it from every other message
 	"content": "Hello, World!", // The textual content of the message
 	"hasMedia": false, // Whether the message contains media (video, photo, etc) or not
 	"mediaLink": "", // The corresponding link to the media (defaults to an empty string if hasMedia is false)
@@ -16,7 +16,6 @@
 So when the client sends a new message to the server, the body would look something like this:
 ```json
 {
-	"id": 8855394,
 	"content": "Today I saw a bird almost hit a window. It was the highlight of my day. I wonder what that says about me?",
 	"hasMedia": true,
 	"mediaLink": "https://images.pexels.com/photos/1435849/pexels-photo-1435849.jpeg?cs=srgb&dl=pexels-enginakyurt-1435849.jpg&fm=jpg"
@@ -28,7 +27,7 @@ Then the server adds on the UNIX timestamp and adds it to the ``messages.json`` 
 {
 	"Messages": [
 		{
-			"id": 8855394,
+			"id": "xYA68aZ6s",
 			"content": "Today I saw a bird almost hit a window. It was the highlight of my day. I wonder what that says about me?",
 			"hasMedia": true,
 			"mediaLink": "https://images.pexels.com/photos/1435849/pexels-photo-1435849.jpeg?cs=srgb&dl=pexels-enginakyurt-1435849.jpg&fm=jpg",
