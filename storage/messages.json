@@ -2,10 +2,10 @@
 	"Messages": [
 		{
 			"id": 0,
-			"content": "Hello, World!",
+			"content": "Hello, World",
 			"hasMedia": false,
 			"mediaLink": "",
-			"unixTimestamp": 0,
+			"unixTimestamp": 0
 		}
 	]
 }
