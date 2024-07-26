@@ -3,7 +3,7 @@
 ## messages.json
 ### formatting
 
-```js
+```json
 {
 	"id": 0, // A unique number to differentiate it from every other message
 	"content": "Hello, World!", // The textual content of the message
