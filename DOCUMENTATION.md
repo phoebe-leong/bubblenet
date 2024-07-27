@@ -35,3 +35,9 @@ Then the server adds on the UNIX timestamp and the Id, and adds it to the ``mess
 		}
 	]
 }
+```
+
+## server.js
+### webpage structure
+
+Everything related to posts will be accessed through the ``/post`` directory. To create a new posts, one will go to ``/post/new``, and existing posts can be accessed by appending the post id to ``/posts``, e.g., ``/posts/id`` where id is replaced with the actual post id one wishes to access.
