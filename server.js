@@ -24,6 +24,14 @@ function isIdUnique(id) {
 	return true
 }
 
+{
+	const file = jsonfile.readFileSync("./storage/messages.json")
+
+	for (let i = 0; i < file.Messages.length; i++) {
+		Ids.push(file.Messages[i].id)
+	}
+}
+
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
 
