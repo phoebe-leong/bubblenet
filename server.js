@@ -35,8 +35,19 @@ function isIdUnique(id) {
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
 
-app.use(express.json())
+app.get("/post/:id", (req, res) => {
+	const file = jsonfile.readFileSync("./storage/messages.json")
 
+	for (let i = 0; i < file.Messages.length; i++) {
+		if (file.Messages[i].id === req.params.id) {
+			res.send(file.Messages[i])
+		} else if (i == file.Messages.length) {
+			res.send("404: Couldn't find post :(")
+		}
+	}
+})
+
+app.use(express.json())
 app.post("/data/messages.json", (req, res) => {
 	const file = jsonfile.readFileSync("./storage/messages.json")
 	var message = req.body
