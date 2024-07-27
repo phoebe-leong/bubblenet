@@ -1,5 +1,7 @@
 const express = require("express")
 const jsonfile = require("jsonfile")
+const path = require("path")
+
 const app = express()
 
 const PORT = 8000
@@ -34,6 +36,10 @@ function isIdUnique(id) {
 
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
+
+app.get("/post/new", (req, res) => {
+	res.sendFile(path.join(__dirname, "new-post.html"))
+})
 
 app.get("/post/:id", (req, res) => {
 	const file = jsonfile.readFileSync("./storage/messages.json")
