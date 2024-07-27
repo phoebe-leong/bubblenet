@@ -22,7 +22,7 @@ So when the client sends a new message to the server, the body would look someth
 }
 ```  
   
-Then the server adds on the UNIX timestamp and adds it to the ``messages.json`` file, and the *Messages* array.  
+Then the server adds on the UNIX timestamp and the Id, and adds it to the ``messages.json`` file, and the *Messages* array.  
 ```json
 {
 	"Messages": [
