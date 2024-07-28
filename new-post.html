@@ -16,6 +16,15 @@
 		<br>
 		<div id="content">
 			<h3>Create a new post</h3>
+
+			<form onsubmit="return false">
+				<label>Post content</label><br>
+				<textarea required maxlength="280"></textarea><br><br>
+
+				<label>Image URL (optional)</label><br>
+				<input type="url"><br><br>
+				<button onclick="newPost(document.querySelector('textarea').value, document.querySelector('input').value)">Post</button>
+			</form>
 		</div>
 	</body>
 </html>
