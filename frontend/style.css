@@ -14,10 +14,30 @@ h1 {
 	margin-top: 10px;
 }
 
-#content {
+button {
+	cursor: pointer;
+}
+
+#content, #post-content {
 	margin-left: 10px;
 }
 
-button {
-	cursor: pointer;
+#post-content img {
+	width: 220px;
+	height: 200px;
+
+	border: 1px solid black;
+
+	margin-right: 5px;
+
+	float: left;
+}
+
+#post-content p {
+	padding: 0;
+	margin: 0;
+}
+
+#post-content .extra-info {
+	font-size: 10px;
 }
