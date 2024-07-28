@@ -46,10 +46,9 @@ app.get("/post/:id", (req, res) => {
 	for (let i = 0; i < file.Messages.length; i++) {
 		if (file.Messages[i].id === req.params.id) {
 			res.send(file.Messages[i])
-		} else if (i == file.Messages.length) {
-			res.send("404: Couldn't find post :(")
 		}
 	}
+	res.send("404: Could not find post!")
 })
 
 app.use(express.json())
