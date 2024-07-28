@@ -69,6 +69,7 @@ app.post("/data/messages.json", (req, res) => {
 	jsonfile.writeFileSync("./storage/messages.json", file)
 
 	Ids.push(message.id)
+	res.send()
 })
 
 app.listen(PORT, () => {
