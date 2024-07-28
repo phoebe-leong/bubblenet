@@ -42,13 +42,22 @@ app.get("/post/new", (req, res) => {
 
 app.get("/post/:id", (req, res) => {
 	const file = jsonfile.readFileSync("./storage/messages.json")
+	let found = false
 
 	for (let i = 0; i < file.Messages.length; i++) {
 		if (file.Messages[i].id === req.params.id) {
-			res.send(file.Messages[i])
+			//res.send(file.Messages[i])
+			//res.sendFile(`${__dirname}/post.html`)
+			found = true
+			break
 		}
 	}
-	res.send("404: Could not find post!")
+
+	if (found) {
+		res.sendFile(`${__dirname}/post.html`)
+	} else {
+		res.send("404: Post not found")
+	}
 })
 
 app.use(express.json())
