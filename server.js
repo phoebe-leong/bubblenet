@@ -49,8 +49,28 @@ function isIdValid(id) {
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
 
+app.get("/feed", (req, res) => {
+	res.sendFile(`${__dirname}/feed.html`)
+})
+
 app.get("/post/new", (req, res) => {
 	res.sendFile(`${__dirname}/new-post.html`)
+})
+
+app.get("/data/feed.json", (req, res) => {
+	const feedLimit = 28
+
+	const file = jsonfile.readFileSync("./storage/messages.json")
+	const fileLength = file.Messages.length - 1
+
+	const currentUnixTime = Date.now()
+
+	let feed = {Feed: []}
+
+	for (let i = fileLength; fileLength - i != feedLimit && i != -1; i--) {
+			feed.Feed.push(file.Messages[i])
+	}
+	res.send(feed)
 })
 
 app.get("/data/:id.json", (req, res) => {
