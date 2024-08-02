@@ -23,17 +23,19 @@ button {
 }
 
 img {
+	border: 1px solid black;
+}
+
+#post-content img {
 	width: 220px;
 	height: 200px;
-
-	border: 1px solid black;
 
 	margin-right: 8px;
 
 	float: left;
 }
 
-#post-content p {
+#post-content p, .feed-item p {
 	margin: 0;
 }
 
@@ -43,4 +45,41 @@ img {
 
 #unix-time {
 	padding-top: 4px;
+}
+
+#feed {
+	display: flex;
+	flex-direction: row;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+
+	margin-right: 7px;
+}
+
+.feed-item {
+	margin-bottom: 10px;
+}
+
+.feed-item img {
+	width: 70px;
+	height: 70px;
+
+	float: left;
+	margin-right: 4px;
+}
+
+.feed-item p {
+	font-size: 14px;
+}
+
+.post-link {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.post-link:hover {
+	text-decoration: none;
 }
