@@ -22,22 +22,25 @@ button {
 	margin-left: 10px;
 }
 
-#post-content img {
+img {
 	width: 220px;
 	height: 200px;
 
 	border: 1px solid black;
 
-	margin-right: 5px;
+	margin-right: 8px;
 
 	float: left;
 }
 
 #post-content p {
-	padding: 0;
 	margin: 0;
 }
 
-#post-content .extra-info {
+.extra-info {
 	font-size: 10px;
+}
+
+#unix-time {
+	padding-top: 4px;
 }
