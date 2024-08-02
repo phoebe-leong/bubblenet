@@ -83,3 +83,8 @@ img {
 .post-link:hover {
 	text-decoration: none;
 }
+
+textarea {
+	width: 240px;
+	height: 74px;
+}
