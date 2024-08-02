@@ -41,3 +41,15 @@ Then the server adds on the UNIX timestamp and the Id, and adds it to the ``mess
 ### webpage structure
 
 Everything related to posts will be accessed through the ``/post`` directory. To create a new posts, one will go to ``/post/new``, and existing posts can be accessed by appending the post id to ``/posts``, e.g., ``/posts/id`` where id is replaced with the actual post id one wishes to access.
+
+### error response
+
+When an error occurs during a GET request, the response from the server will be formatted as follows:
+```json
+{
+	"errorCode": 40, // The error code
+	"errorMessage": "Invalid post id" // The message corresponding to the code
+}
+```  
+#### error codes
+**40:** Invalid post id
