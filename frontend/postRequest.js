@@ -5,6 +5,8 @@ window.onload = async () => {
 
 	if (data.hasMedia) {
 		document.querySelector("img").src = data.mediaLink
+	} else {
+		document.querySelector("img").src = "/media/image-placeholder.png"
 	}
 
 	document.getElementById("post-text").innerHTML = data.content
