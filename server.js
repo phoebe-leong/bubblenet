@@ -30,7 +30,7 @@ function isIdValid(id) {
 	let found = false
 
 	for (let i = 0; i < file.Messages.length; i++) {
-		if (file.Messages[i].id == id) {
+		if (file.Messages[i].id === id) {
 			found = true
 			break
 		}
@@ -53,11 +53,30 @@ app.get("/post/new", (req, res) => {
 	res.sendFile(`${__dirname}/new-post.html`)
 })
 
+app.get("/data/:id.json", (req, res) => {
+	res.setHeader("Content-Type", "application/json")
+
+	if (!isIdValid(req.params.id)) {
+		res.send(JSON.stringify({
+			"errorCode": 40,
+			"errorMessage": "Invalid post id"
+		}))
+	} else {
+		const file = jsonfile.readFileSync("./storage/messages.json")
+
+		for (let i = 0; i < file.Messages.length; i++) {
+			if (file.Messages[i].id === req.params.id) {
+				res.send(file.Messages[i])
+			}
+		}
+	}
+})
+
 app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
 		res.sendFile(`${__dirname}/post.html`)
 	} else {
-		res.send("404: Post not found")
+		res.send("404: Post not found\nError code: 40\nError Message: \"Invalid post id\"")
 	}
 })
 
