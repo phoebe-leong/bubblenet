@@ -12,5 +12,8 @@ async function newPost(content, link) {
 			mediaLink: link
 		})
 	})
+	document.querySelector("textarea").value = ""
+	document.querySelector("input").value = ""
+	
 	alert("Posted!")
 }
