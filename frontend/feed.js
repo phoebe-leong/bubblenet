@@ -21,7 +21,7 @@ function newFeedItem(data) {
 		link.classList.add("post-link")
 		link.innerHTML = "[click to see full post]"
 		link.onclick = () => {
-			window.open(`/post/${data.id}`, "_blank")
+			window.open(`/post/${data.id}`, "_self")
 		}
 
 	container.appendChild(img)
