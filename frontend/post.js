@@ -13,11 +13,13 @@ function unixTimestampToReadableDate(timestamp) {
 		month: monthTable[parseInt(splitDate[1]) - 1],
 		year: yearAndTimeSplit[0],
 		time: {
-			hour: (parseInt((yearAndTimeSplit[1]).split(':')[0]) - 12) % 12 || 12,
+			hour: (parseInt((yearAndTimeSplit[1]).split(':')[0])) % 12 || 12,
 			minute: yearAndTimeSplit[1].split(':')[1]
 		}
 	}
-	readable.time.meridian = (readable.time.hour > 12) ? "am" : "pm"
+	readable.time.meridian = (readable.time.hour >= 12) ? "pm" : "am"
+
+	console.log()
 
 	return `${readable.time.hour}:${readable.time.minute}${readable.time.meridian} ${readable.day}, ${readable.month} ${readable.date}, ${readable.year}`
 }
