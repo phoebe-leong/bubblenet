@@ -111,7 +111,7 @@ app.post("/data/messages.json", (req, res) => {
 	}
 
 	message.id = id
-	message.unixTimestamp = Date.now()
+	message.unixTimestamp = Date.now() / 1000
 
 	file.Messages.push(message)
 	jsonfile.writeFileSync("./storage/messages.json", file)
