@@ -41,8 +41,6 @@ function placeFeedItem(item) {
 	const columns = Array.prototype.slice.call(document.getElementById("feed").children)
 
 	for (let i = 0; i < columns.length; i++) {
-		console.log(columns[i])
-
 		if (Array.prototype.slice.call(columns[i].children).length < 6) {
 			columns[i].appendChild(item)
 			return
@@ -64,6 +62,5 @@ window.onload = async () => {
 
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
-
 	}
 }
