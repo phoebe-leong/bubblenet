@@ -1,3 +1,27 @@
+function unixTimestampToReadableDate(timestamp) {
+	const dayTable = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"]
+	const monthTable = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+	const date = new Date(timestamp * 1000)
+	const locale = date.toLocaleString()
+	const splitDate = locale.split('/')
+	const yearAndTimeSplit = splitDate[2].split(',')
+
+	const readable = {
+		day: dayTable[date.getDay()],
+		date: (splitDate[0][0] === '0') ? splitDate[0][1] : splitDate[0],
+		month: monthTable[parseInt(splitDate[1]) - 1],
+		year: yearAndTimeSplit[0],
+		time: {
+			hour: (parseInt((yearAndTimeSplit[1]).split(':')[0]) - 12) % 12 || 12,
+			minute: yearAndTimeSplit[1].split(':')[1]
+		}
+	}
+	readable.time.meridian = (readable.time.hour > 12) ? "am" : "pm"
+
+	return `${readable.time.hour}:${readable.time.minute}${readable.time.meridian} ${readable.day}, ${readable.month} ${readable.date}, ${readable.year}`
+}
+
 window.onload = async () => {
 	const id = window.location.pathname.split('/')[2]
 	const data = await fetch(`/data/${id}.json`)
@@ -24,7 +48,7 @@ window.onload = async () => {
 	container.appendChild(closeBtn)
 
 	document.getElementById("post-text").innerHTML = data.content
-	document.getElementById("unix-time").innerHTML = `Posted: ${data.unixTimestamp} (UTC+10)`
+	document.getElementById("unix-time").innerHTML = `Posted: ${unixTimestampToReadableDate(data.unixTimestamp)}`
 	document.getElementById("post-id").innerHTML = `Post Id: ${id}`
 
 	document.body.appendChild(container)
