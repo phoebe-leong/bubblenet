@@ -1,5 +1,6 @@
 function newFeedItem(data) {
 	const characterLimit = 48
+	const oneLineLength = characterLimit - 11
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {
@@ -25,9 +26,13 @@ function newFeedItem(data) {
 
 	container.appendChild(img)
 	container.appendChild(text)
-	container.appendChild(document.createElement("br"))
-	container.appendChild(link)
 
+	if (shortenedText.length <= oneLineLength) {
+		container.appendChild(document.createElement("br"))
+	}
+	container.appendChild(document.createElement("br"))
+
+	container.appendChild(link)
 	return container
 }
 
