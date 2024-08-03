@@ -29,6 +29,7 @@ function newFeedItem(data) {
 
 	if (shortenedText.length <= oneLineLength) {
 		container.appendChild(document.createElement("br"))
+		link.classList.add("short")
 	}
 	container.appendChild(document.createElement("br"))
 

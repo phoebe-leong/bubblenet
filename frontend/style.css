@@ -87,10 +87,16 @@ img {
 .post-link {
 	text-decoration: underline;
 	cursor: pointer;
+
+	padding-top: 6.5px;
 }
 
 .post-link:hover {
 	text-decoration: none;
+}
+
+.short {
+	padding-top: 4px;
 }
 
 textarea {
