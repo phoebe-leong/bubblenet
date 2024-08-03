@@ -1,6 +1,6 @@
 window.onload = async () => {
 	const id = window.location.pathname.split('/')[2]
-	const data = await fetch(`http://127.0.0.1:8000/data/${id}.json`)
+	const data = await fetch(`/data/${id}.json`)
 		.then((data) => data.json())
 
 	if (data.hasMedia) {

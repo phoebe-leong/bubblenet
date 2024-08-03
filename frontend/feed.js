@@ -20,7 +20,7 @@ function newFeedItem(data) {
 		link.classList.add("post-link")
 		link.innerHTML = "[click to see full post]"
 		link.onclick = () => {
-			window.open(`http://127.0.0.1:8000/post/${data.id}`, "_blank")
+			window.open(`/post/${data.id}`, "_blank")
 		}
 
 	container.appendChild(img)
@@ -53,11 +53,10 @@ function placeFeedItem(item) {
 }
 
 window.onload = async () => {
-	const feed = await fetch("http://127.0.0.1:8000/data/feed.json")
+	const feed = await fetch("/data/feed.json")
 		.then((data) => data.json())
 
 	for (let i = 0; i < feed.Feed.length; i++) {
-		//document.querySelector(".column").appendChild(newFeedItem(feed.Feed[i]))
 		placeFeedItem(newFeedItem(feed.Feed[i]))
 
 	}
