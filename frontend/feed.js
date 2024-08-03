@@ -56,11 +56,30 @@ function placeFeedItem(item) {
 	}
 }
 
-window.onload = async () => {
+async function fetchFeed() {
+	if (document.querySelector(".column") != null) {
+		const columns = Array.prototype.slice.call(document.getElementById("feed").children)
+
+		for (let i = 0; i < columns.length; i++) {
+			columns[i].remove()
+		}
+	}
+
 	const feed = await fetch("/data/feed.json")
 		.then((data) => data.json())
 
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
 	}
+}
+
+window.onload = async () => {
+	document.getElementById("refresh").onclick = async () => {
+		fetchFeed()
+	}
+
+	document.getElementById("post").onclick = () => {
+		window.open("/post/new")
+	}
+	fetchFeed()
 }
