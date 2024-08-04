@@ -4,6 +4,8 @@ const jsonfile = require("jsonfile")
 const app = express()
 
 const PORT = 8000
+const CHARACTERLIMIT = 650
+
 const Ids = []
 
 function generateId() {
@@ -78,7 +80,7 @@ app.get("/data/:id.json", (req, res) => {
 
 	if (!isIdValid(req.params.id)) {
 		res.send(JSON.stringify({
-			"errorCode": 40,
+			"errorCode": 400,
 			"errorMessage": "Invalid post id"
 		}))
 	} else {
@@ -96,12 +98,17 @@ app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
 		res.sendFile(`${__dirname}/post.html`)
 	} else {
-		res.send("404: Post not found\nError code: 40\nError Message: \"Invalid post id\"")
+		res.status(404).send("Post not found")
 	}
 })
 
 app.use(express.json())
 app.post("/data/messages.json", (req, res) => {
+
+	if (req.body.content.length > CHARACTERLIMIT) {
+		res.status(400).send("Textual content exceeds defined character limit")
+	}
+
 	const file = jsonfile.readFileSync("./storage/messages.json")
 	var message = req.body
 
