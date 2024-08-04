@@ -54,4 +54,6 @@ window.onload = async () => {
 	document.getElementById("post-id").innerHTML = `Post Id: ${id}`
 
 	document.body.appendChild(container)
+
+	document.getElementById("version").style.paddingBottom = "12px"
 }

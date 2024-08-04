@@ -174,3 +174,10 @@ dialog:focus-visible {
 
 	cursor: pointer;
 }
+
+#version {
+	position: absolute;
+	bottom: 0;
+
+	font-size: 12px;
+}
