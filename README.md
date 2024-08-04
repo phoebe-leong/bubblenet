@@ -9,5 +9,6 @@ This platform will hopefully grow to be usable, but is currently in it's most pr
 
 ## dependencies
 
-- Express v4.19.2
-- jsonfile v6.1.0
+- [NodeJS](https://nodejs.org/en) v20.14.0 (honestly probably can be any version but this is the one I'm using)
+- [Express](https://expressjs.com/) v4.19.2
+- [jsonfile](https://www.npmjs.com/package/jsonfile) v6.1.0
