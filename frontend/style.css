@@ -61,6 +61,13 @@ img {
 	cursor: pointer;
 }
 
+#post-text {
+	max-width: 900px;
+	overflow: hidden;
+
+	word-wrap: break-word;
+}
+
 .extra-info {
 	font-size: 10px;
 }
