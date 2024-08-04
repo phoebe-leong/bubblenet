@@ -105,8 +105,12 @@ app.get("/post/:id", (req, res) => {
 app.use(express.json())
 app.post("/data/messages.json", (req, res) => {
 
-	if (req.body.content.length > CHARACTERLIMIT) {
+	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
+		res.status(400).send("Missing required JSON keys")
+		return
+	} else if (req.body.content.length > CHARACTERLIMIT) {
 		res.status(400).send("Textual content exceeds defined character limit")
+		return
 	}
 
 	const file = jsonfile.readFileSync("./storage/messages.json")
