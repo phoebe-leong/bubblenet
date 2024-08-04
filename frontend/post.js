@@ -7,20 +7,20 @@ function unixTimestampToReadableDate(timestamp) {
 	const splitDate = locale.split('/')
 	const yearAndTimeSplit = splitDate[2].split(',')
 
+	const militaryHour = parseInt((yearAndTimeSplit[1]).split(':')[0])
+
 	const readable = {
 		day: dayTable[date.getDay()],
 		date: (splitDate[0][0] === '0') ? splitDate[0][1] : splitDate[0],
 		month: monthTable[parseInt(splitDate[1]) - 1],
 		year: yearAndTimeSplit[0],
 		time: {
-			hour: (parseInt((yearAndTimeSplit[1]).split(':')[0])) % 12 || 12,
+			hour: militaryHour % 12 || 12,
 			minute: yearAndTimeSplit[1].split(':')[1]
 		}
 	}
-	readable.time.meridian = (readable.time.hour >= 12) ? "pm" : "am"
-
-	console.log()
-
+	readable.time.meridian = (militaryHour >= 12) ? "pm" : "am"
+	
 	return `${readable.time.hour}:${readable.time.minute}${readable.time.meridian} ${readable.day}, ${readable.month} ${readable.date}, ${readable.year}`
 }
 
