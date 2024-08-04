@@ -49,6 +49,12 @@ function isIdValid(id) {
 	}
 }
 
+const logger = (req, res, next) => {
+	console.log(req.url)
+	next()
+}
+app.use(logger)
+
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
 
@@ -99,6 +105,10 @@ app.get("/post/:id", (req, res) => {
 	} else {
 		res.status(404).send("Post not found")
 	}
+})
+
+app.get("/data/subheader.txt", (req, res) => {
+	res.sendFile(`${__dirname}/storage/subheader.txt`)
 })
 
 app.use(express.json())
