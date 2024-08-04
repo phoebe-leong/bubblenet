@@ -45,7 +45,7 @@ img {
 }
 
 #post-content img {
-	width: 220px;
+	width: 200px;
 	height: 200px;
 
 	margin-right: 8px;
@@ -68,7 +68,14 @@ img {
 	word-wrap: break-word;
 }
 
-.extra-info {
+#extra-info {
+	position: absolute;
+	bottom: 0;
+
+	margin-bottom: 443px;
+}
+
+#extra-info p {
 	font-size: 10px;
 }
 
