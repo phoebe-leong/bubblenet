@@ -131,5 +131,5 @@ app.post("/data/messages.json", (req, res) => {
 })
 
 app.listen(PORT, () => {
-	console.log(`Listening on ${PORT}`)
+	console.log(`Listening on port ${PORT}`)
 })
