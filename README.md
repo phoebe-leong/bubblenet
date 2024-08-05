@@ -7,8 +7,7 @@ Anonymous Twitter is a place where you can put your thoughts out into the world 
   
 This platform will hopefully grow to be usable, but is currently in it's most precious stages of infancy.  
 
-## dependencies
-
-- [NodeJS](https://nodejs.org/en) v20.14.0 (honestly probably can be any version but this is the one I'm using)
-- [Express](https://expressjs.com/) v4.19.2
-- [jsonfile](https://www.npmjs.com/package/jsonfile) v6.1.0
+## installation
+1. First, download [NodeJS](https://nodejs.org/en) if you don't already have it. This will install the NPM package manager as well.
+2. Run ``npm install`` in the project's directory Terminal. This installs all the dependencies that the server needs to run.
+3. To start up the server, enter ``node server.js`` into the Terminal, also in the project directory. This will start running the server code file.
