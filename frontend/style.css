@@ -130,11 +130,17 @@ img {
 	padding-top: 4px;
 }
 
+.line-length {
+	padding-top: 22.5px;
+}
+
 textarea {
 	font-size: 14.5px;
 
 	width: 255px;
 	height: 89px;
+
+	padding: 5px;
 }
 
 #modal {
