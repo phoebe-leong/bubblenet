@@ -1,6 +1,6 @@
 function newFeedItem(data) {
 	const characterLimit = 48
-	const oneLineLength = characterLimit - 11
+	const oneLineLength = characterLimit - 33
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {
@@ -27,7 +27,7 @@ function newFeedItem(data) {
 	container.appendChild(img)
 	container.appendChild(text)
 
-	if (shortenedText.length <= oneLineLength) {
+	if (shortenedText.length < oneLineLength) {
 		container.appendChild(document.createElement("br"))
 		link.classList.add("short")
 	}
@@ -79,7 +79,7 @@ window.onload = async () => {
 	}
 
 	document.getElementById("post").onclick = () => {
-		window.open("/post/new")
+		window.open("/post/new", "_self")
 	}
 	fetchFeed()
 }
