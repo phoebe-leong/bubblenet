@@ -5,7 +5,7 @@ const app = express()
 
 const PORT = 8000
 const CHARACTERLIMIT = 650
-const FEEDLIMIT = 28
+const FEEDLIMIT = 30
 
 const Ids = []
 
@@ -53,13 +53,17 @@ const logger = (req, res, next) => {
 	console.log(req.url)
 	next()
 }
-app.use(logger)
+//app.use(logger)
 
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
 
 app.get("/feed", (req, res) => {
 	res.sendFile(`${__dirname}/feed.html`)
+})
+
+app.get("/archive", (req, res) => {
+	res.sendFile(`${__dirname}/archive.html`)
 })
 
 app.get("/post/new", (req, res) => {
@@ -70,14 +74,28 @@ app.get("/data/feed.json", (req, res) => {
 	const file = jsonfile.readFileSync("./storage/messages.json")
 	const fileLength = file.Messages.length - 1
 
-	const currentUnixTime = Date.now()
-
 	let feed = {Feed: []}
 
 	for (let i = fileLength; fileLength - i != FEEDLIMIT && i != -1; i--) {
 			feed.Feed.push(file.Messages[i])
 	}
 	res.send(feed)
+})
+
+app.get("/data/archive.json", (req, res) => {
+	const file = jsonfile.readFileSync("./storage/messages.json")
+	const fileLength = file.Messages.length - 1
+
+	let archive = {Archive: []}
+
+	let j = 0
+	for (let i = fileLength + 1; i != -1; i--) {
+		if (j > FEEDLIMIT) {
+			archive.Archive.push(file.Messages[i])
+		}
+		j++
+	}
+	res.send(archive)
 })
 
 app.get("/data/:id.json", (req, res) => {

@@ -1,3 +1,7 @@
+html, textarea {
+	font-family: serif;
+}
+
 body {
 	padding: 0px;
 	margin: 0px;
@@ -53,7 +57,7 @@ img {
 	float: left;
 }
 
-#post-content p, .feed-item p {
+#post-content p, .feed-item p, .archive-item p {
 	margin: 0;
 }
 
@@ -83,7 +87,7 @@ img {
 	padding-top: 4px;
 }
 
-#feed {
+#feed, #archive section {
 	display: flex;
 	flex-direction: row;
 }
@@ -95,11 +99,11 @@ img {
 	margin-right: 7px;
 }
 
-.feed-item {
+.feed-item, .archive-item {
 	margin-bottom: 10px;
 }
 
-.feed-item img {
+.feed-item img, .archive-item img {
 	width: 70px;
 	height: 70px;
 
@@ -107,7 +111,7 @@ img {
 	margin-right: 4px;
 }
 
-.feed-item p {
+.feed-item p, .archive-item p {
 	font-size: 14px;
 }
 
@@ -127,8 +131,10 @@ img {
 }
 
 textarea {
-	width: 240px;
-	height: 74px;
+	font-size: 14.5px;
+
+	width: 255px;
+	height: 89px;
 }
 
 #modal {
