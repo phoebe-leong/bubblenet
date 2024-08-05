@@ -81,5 +81,9 @@ window.onload = async () => {
 	document.getElementById("post").onclick = () => {
 		window.open("/post/new", "_self")
 	}
+
+	document.getElementById("view-archive").onclick = () => {
+		window.open("/archive", "_self")
+	}
 	fetchFeed()
 }
