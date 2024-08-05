@@ -53,7 +53,25 @@ const logger = (req, res, next) => {
 	console.log(req.url)
 	next()
 }
-//app.use(logger)
+app.use(logger)
+
+const notfound = (req, res, next) => {
+	res.status(404).sendFile(`${__dirname}/notfound.html`)
+}
+const servererror = (err, req, res, next) => {
+	res.status(err.status || 500)
+	if (app.get("env") === "development") {
+		res.send(JSON.stringify({
+			error: err,
+			message: err.message
+		}))
+	} else {
+		res.send(JSON.stringify({
+			error: "",
+			message: err.message
+		}))
+	}
+}
 
 app.use("/", express.static("frontend"))
 app.use("/data", express.static("storage"))
@@ -121,7 +139,7 @@ app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
 		res.sendFile(`${__dirname}/post.html`)
 	} else {
-		res.status(404).send("Post not found")
+		res.status(404).sendFile(`${__dirname}/notfound.html`)
 	}
 })
 
@@ -157,6 +175,8 @@ app.post("/data/messages.json", (req, res) => {
 	Ids.push(message.id)
 	res.send()
 })
+app.use(notfound)
+app.use(servererror)
 
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`)
