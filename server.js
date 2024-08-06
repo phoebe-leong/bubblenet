@@ -6,6 +6,7 @@ const app = express()
 const PORT = 8000
 const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
+const WINCHECKFALSE = (process.platform != "win32")
 
 const Ids = []
 
@@ -29,7 +30,7 @@ function isIdUnique(id) {
 }
 
 function isIdValid(id) {
-	const file = jsonfile.readFileSync("./storage/messages.json")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 	let found = false
 
 	for (let i = 0; i < file.Messages.length; i++) {
@@ -42,7 +43,7 @@ function isIdValid(id) {
 }
 
 {
-	const file = jsonfile.readFileSync("./storage/messages.json")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 
 	for (let i = 0; i < file.Messages.length; i++) {
 		Ids.push(file.Messages[i].id)
@@ -56,7 +57,7 @@ const logger = (req, res, next) => {
 app.use(logger)
 
 const notfound = (req, res, next) => {
-	res.status(404).sendFile(`${__dirname}/notfound.html`)
+	res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
 }
 const servererror = (err, req, res, next) => {
 	res.status(err.status || 500)
@@ -77,19 +78,19 @@ app.use("/", express.static("frontend/public"))
 app.use("/data", express.static("storage"))
 
 app.get("/feed", (req, res) => {
-	res.sendFile(`${__dirname}/frontend/feed.html`)
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/feed.html` : `${__dirname}\\frontend\\feed.html`)
 })
 
 app.get("/archive", (req, res) => {
-	res.sendFile(`${__dirname}/frontend/archive.html`)
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/archive.html` : `${__dirname}\\frontend\\archive.html`)
 })
 
 app.get("/post/new", (req, res) => {
-	res.sendFile(`${__dirname}/frontend/new-post.html`)
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/new-post.html` : `${__dirname}\\frontend\\new-post.html`)
 })
 
 app.get("/data/feed.json", (req, res) => {
-	const file = jsonfile.readFileSync("./storage/messages.json")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 	const fileLength = file.Messages.length - 1
 
 	let feed = {Feed: []}
@@ -101,7 +102,7 @@ app.get("/data/feed.json", (req, res) => {
 })
 
 app.get("/data/archive.json", (req, res) => {
-	const file = jsonfile.readFileSync("./storage/messages.json")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 	const fileLength = file.Messages.length - 1
 
 	let archive = {Archive: []}
@@ -125,7 +126,7 @@ app.get("/data/:id.json", (req, res) => {
 			"errorMessage": "Invalid post id"
 		}))
 	} else {
-		const file = jsonfile.readFileSync("./storage/messages.json")
+		const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 
 		for (let i = 0; i < file.Messages.length; i++) {
 			if (file.Messages[i].id === req.params.id) {
@@ -137,14 +138,14 @@ app.get("/data/:id.json", (req, res) => {
 
 app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
-		res.sendFile(`${__dirname}/frontend/post.html`)
+		res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/post.html` : `${__dirname}\\frontend\\post.html`)
 	} else {
-		res.status(404).sendFile(`${__dirname}/notfound.html`)
+		res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
 	}
 })
 
 app.get("/data/subheader.txt", (req, res) => {
-	res.sendFile(`${__dirname}/storage/subheader.txt`)
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
 })
 
 app.use(express.json())
@@ -158,7 +159,7 @@ app.post("/data/messages.json", (req, res) => {
 		return
 	}
 
-	const file = jsonfile.readFileSync("./storage/messages.json")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 	var message = req.body
 
 	let id = ""
@@ -170,7 +171,7 @@ app.post("/data/messages.json", (req, res) => {
 	message.unixTimestamp = Math.trunc(Date.now() / 1000)
 
 	file.Messages.push(message)
-	jsonfile.writeFileSync("./storage/messages.json", file)
+	jsonfile.writeFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`, file)
 
 	Ids.push(message.id)
 	res.send()
