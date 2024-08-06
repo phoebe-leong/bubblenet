@@ -73,19 +73,19 @@ const servererror = (err, req, res, next) => {
 	}
 }
 
-app.use("/", express.static("frontend"))
+app.use("/", express.static("frontend/public"))
 app.use("/data", express.static("storage"))
 
 app.get("/feed", (req, res) => {
-	res.sendFile(`${__dirname}/feed.html`)
+	res.sendFile(`${__dirname}/frontend/feed.html`)
 })
 
 app.get("/archive", (req, res) => {
-	res.sendFile(`${__dirname}/archive.html`)
+	res.sendFile(`${__dirname}/frontend/archive.html`)
 })
 
 app.get("/post/new", (req, res) => {
-	res.sendFile(`${__dirname}/new-post.html`)
+	res.sendFile(`${__dirname}/frontend/new-post.html`)
 })
 
 app.get("/data/feed.json", (req, res) => {
@@ -137,7 +137,7 @@ app.get("/data/:id.json", (req, res) => {
 
 app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
-		res.sendFile(`${__dirname}/post.html`)
+		res.sendFile(`${__dirname}/frontend/post.html`)
 	} else {
 		res.status(404).sendFile(`${__dirname}/notfound.html`)
 	}
