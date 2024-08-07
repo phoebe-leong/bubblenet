@@ -73,13 +73,19 @@ img {
 }
 
 #extra-info {
-	position: absolute;
-	bottom: 0;
-
 	margin-bottom: 27.688em; /* 443px */
 }
 
-#extra-info p {
+#extra-info-opera {
+	margin-bottom: 413px;
+}
+
+#extra-info, #extra-info-opera {
+	position: absolute;
+	bottom: 0;
+}
+
+#extra-info p, #extra-info-opera p {
 	font-size: 10px;
 }
 
