@@ -1,6 +1,6 @@
 function newArchiveItem(data) {
 	const characterLimit = 45
-	const oneLineLength = characterLimit - 11
+	const oneLineLength = 25
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {

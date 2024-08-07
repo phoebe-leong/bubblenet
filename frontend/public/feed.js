@@ -1,6 +1,6 @@
 function newFeedItem(data) {
 	const characterLimit = 45
-	const oneLineLength = 34
+	const oneLineLength = 25
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {
