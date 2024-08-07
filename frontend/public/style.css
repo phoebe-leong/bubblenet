@@ -3,8 +3,8 @@ html, textarea {
 }
 
 body {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 }
 
 h1, h4 {
@@ -15,12 +15,12 @@ h1, h4 {
 }
 
 h1 {
-	margin-top: 10px;
+	margin-top: 0.3em; /* 10px */
 }
 
 h2 {
 	padding-bottom: 0;
-	margin-bottom: 10px;
+	margin-bottom: 0.42em; /* 10px */
 }
 
 h1 a {
@@ -37,11 +37,11 @@ button {
 }
 
 #controls button {
-	margin-bottom: 10px;
+	margin-bottom: 0.75em; /* 10px */
 }
 
 #content, #post-content {
-	margin-left: 10px;
+	margin-left: 0.625em; /* 10px */
 }
 
 img {
@@ -49,10 +49,10 @@ img {
 }
 
 #post-content img {
-	width: 200px;
-	height: 200px;
+	width: 12.5em; /* 200px */
+	height: 12.5em; /* 200px */
 
-	margin-right: 8px;
+	margin-right: 0.5em; /* 8px */
 
 	float: left;
 }
@@ -66,7 +66,7 @@ img {
 }
 
 #post-text {
-	max-width: 900px;
+	max-width: 900px; /* May change this to em in the future. Right now, not so sure how to test */
 	overflow: hidden;
 
 	word-wrap: break-word;
@@ -76,7 +76,7 @@ img {
 	position: absolute;
 	bottom: 0;
 
-	margin-bottom: 443px;
+	margin-bottom: 27.688em; /* 443px */
 }
 
 #extra-info p {
@@ -84,7 +84,7 @@ img {
 }
 
 #unix-time {
-	padding-top: 4px;
+	padding-top: 0.25em; /* 4px */
 }
 
 #feed, #archive section {
@@ -93,7 +93,7 @@ img {
 }
 
 #archive section {
-	margin-bottom: 25px;
+	margin-bottom: 1.563em; /* 25px */
 }
 
 #feed p {
@@ -104,19 +104,19 @@ img {
 	display: flex;
 	flex-direction: column;
 
-	margin-right: 7px;
+	margin-right: 0.438em; /* 7px */
 }
 
 .feed-item, .archive-item {
-	margin-bottom: 10px;
+	margin-bottom: 0.625em; /* 10px */
 }
 
 .feed-item img, .archive-item img {
-	width: 70px;
-	height: 70px;
+	width: 4.375em; /* 70px */
+	height: 4.375em; /* 70px */
 
 	float: left;
-	margin-right: 4px;
+	margin-right: 0.25em; /* 4px */
 }
 
 .feed-item p, .archive-item p {
@@ -127,7 +127,7 @@ img {
 	text-decoration: underline;
 	cursor: pointer;
 
-	padding-top: 6.5px;
+	padding-top: 0.5em; /* 6.5px */
 }
 
 .post-link:hover {
@@ -135,20 +135,20 @@ img {
 }
 
 .short {
-	padding-top: 4px;
+	padding-top: 0.27em; /* 4px */
 }
 
 .line-length {
-	padding-top: 22.5px;
+	padding-top: 1.6em; /* 22.5px */
 }
 
 textarea {
 	font-size: 14.5px;
 
-	width: 255px;
-	height: 89px;
+	width: 17.6em; /* 255px */
+	height: 6.1em; /* 89px */
 
-	padding: 5px;
+	padding: 0.34em; /* 5px */
 }
 
 #modal {
@@ -168,8 +168,8 @@ dialog, #modal {
 	top: 0;
 	right: 0;
 
-	width: 700px;
-	height: 700px;
+	width: 43.75em; /* 700px */
+	height: 43.75em; /* 700px */
 
 	overflow: visible;
 }
@@ -181,11 +181,11 @@ dialog:focus-visible {
 #close {
 	position: absolute;
 
-	top: 5px;
-	right: 5px;
+	top: 0.313em; /* 5px */
+	right: 0.313em; /* 5px */
 
-	width: 25px;
-	height: 25px;
+	width: 1.563em; /* 25px */
+	height: 1.563em; /* 25px */
 
 	padding: 0;
 	margin: 0;
