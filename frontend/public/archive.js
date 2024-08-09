@@ -1,6 +1,6 @@
 function newArchiveItem(data) {
-	const characterLimit = 45
-	const oneLineLength = 25
+	const characterLimit = (!isMobile) ? 45 : 80
+	const oneLineLength = (!isMobile) ? 25 : 48
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {
@@ -38,36 +38,40 @@ function newArchiveItem(data) {
 }
 
 function placeArchiveItem(item) {
-	const sections = Array.prototype.slice.call(document.getElementById("archive").children)
+	if (!isMobile) {
+		const sections = Array.prototype.slice.call(document.getElementById("archive").children)
 
-	for (let i = 0; i < sections.length; i++) {
-		const columns = sections[i].children
-		for (let j = 0; j < columns.length; j++) {
-			if (Array.prototype.slice.call(columns[j].children).length < 6) {
-				columns[j].appendChild(item)
-				return
-			}
+		for (let i = 0; i < sections.length; i++) {
+			const columns = sections[i].children
+			for (let j = 0; j < columns.length; j++) {
+				if (Array.prototype.slice.call(columns[j].children).length < 6) {
+					columns[j].appendChild(item)
+					return
+				}
 
-			if (columns.length < 5) {
-				const column = document.createElement("div")
-					column.classList.add("column")
+				if (columns.length < 5) {
+					const column = document.createElement("div")
+						column.classList.add("column")
 
-				column.appendChild(item)
-				sections[i].appendChild(column)
+					column.appendChild(item)
+					sections[i].appendChild(column)
 
-				return
+					return
+				}
 			}
 		}
+
+		const section = document.createElement("section")
+		const column = document.createElement("div")
+			column.classList.add("column")
+
+		column.appendChild(item)
+		section.appendChild(column)
+
+		document.getElementById("archive").appendChild(section)
+	} else {
+		document.getElementById("archive").appendChild(item)
 	}
-
-	const section = document.createElement("section")
-	const column = document.createElement("div")
-		column.classList.add("column")
-
-	column.appendChild(item)
-	section.appendChild(column)
-
-	document.getElementById("archive").appendChild(section)
 }
 
 async function fetchArchive() {
@@ -92,4 +96,6 @@ window.onload = async () => {
 		fetchArchive()
 	}
 	fetchArchive()
+
+	isMobile = mobileCheck()
 }

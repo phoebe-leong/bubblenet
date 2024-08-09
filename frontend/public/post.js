@@ -25,6 +25,8 @@ function unixTimestampToReadableDate(timestamp) {
 }
 
 window.onload = async () => {
+	isMobile = mobileCheck()
+
 	const id = window.location.pathname.split('/')[2]
 	const data = await fetch(`/data/${id}.json`)
 		.then((data) => data.json())

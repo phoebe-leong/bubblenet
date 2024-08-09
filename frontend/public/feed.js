@@ -1,6 +1,6 @@
 function newFeedItem(data) {
-	const characterLimit = 45
-	const oneLineLength = 25
+	const characterLimit = (!isMobile) ? 45 : 80
+	const oneLineLength = (!isMobile) ? 25 : 48
 	let shortenedText = data.content
 
 	if (shortenedText.length > characterLimit) {
@@ -12,7 +12,6 @@ function newFeedItem(data) {
 
 	const container = document.createElement("div")
 		container.classList.add("feed-item")
-
 	const img = document.createElement("img")
 		img.src = (data.hasMedia) ? data.mediaLink : "/media/image-placeholder.png"
 	const text = document.createElement("p")
@@ -33,28 +32,36 @@ function newFeedItem(data) {
 	} else if (shortenedText.length == oneLineLength) {
 		link.classList.add("line-length")
 	}
+	
 	container.appendChild(document.createElement("br"))
-
 	container.appendChild(link)
+
 	return container
 }
 
 function placeFeedItem(item) {
-	const columns = Array.prototype.slice.call(document.getElementById("feed").children)
+	if (!isMobile) {
+		const maxColLength = 5
+		const maxItems = 6
 
-	for (let i = 0; i < columns.length; i++) {
-		if (Array.prototype.slice.call(columns[i].children).length < 6) {
-			columns[i].appendChild(item)
-			return
+		const columns = Array.prototype.slice.call(document.getElementById("feed").children)
+
+		for (let i = 0; i < columns.length; i++) {
+			if (Array.prototype.slice.call(columns[i].children).length < maxItems) {
+				columns[i].appendChild(item)
+				return
+			}
 		}
-	}
 
-	if (columns.length < 5) {
-		const column = document.createElement("div")
-			column.classList.add("column")
+		if (columns.length < maxColLength) {
+			const column = document.createElement("div")
+				column.classList.add("column")
 
-		column.appendChild(item)
-		document.getElementById("feed").appendChild(column)
+			column.appendChild(item)
+			document.getElementById("feed").appendChild(column)
+		}
+	} else {
+		document.getElementById("feed").appendChild(item)
 	}
 }
 
@@ -73,9 +80,15 @@ async function fetchFeed() {
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
 	}
+
+	if (document.querySelector(".column") != null) {
+		document.querySelector(".column").id = "first"
+	}
 }
 
 window.onload = async () => {
+	isMobile = mobileCheck()
+
 	document.getElementById("refresh").onclick = async () => {
 		fetchFeed()
 	}
@@ -88,4 +101,8 @@ window.onload = async () => {
 		window.open("/archive", "_self")
 	}
 	fetchFeed()
+
+	if (isMobile) {
+		document.getElementById("version").id = "version-mobile"
+	}
 }
