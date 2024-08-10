@@ -77,7 +77,7 @@ img {
 }
 
 #extra-info-opera {
-	margin-bottom: 413px;
+	margin-bottom: 25.8125em; /* 413px */
 }
 
 #extra-info, #extra-info-opera {
