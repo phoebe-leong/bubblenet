@@ -79,7 +79,7 @@ async function fetchFeed() {
 
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
-	}x
+	}
 }
 
 window.onload = async () => {
