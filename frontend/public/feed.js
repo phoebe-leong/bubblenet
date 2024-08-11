@@ -79,11 +79,7 @@ async function fetchFeed() {
 
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
-	}
-
-	if (document.querySelector(".column") != null) {
-		document.querySelector(".column").id = "first"
-	}
+	}x
 }
 
 window.onload = async () => {
