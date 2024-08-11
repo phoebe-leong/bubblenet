@@ -73,11 +73,11 @@ img {
 }
 
 #extra-info {
-	margin-bottom: 27.688em; /* 443px */
+	margin-bottom: 27.6875em; /* 443px */
 }
 
 #extra-info-opera {
-	margin-bottom: 25.8125em; /* 413px */
+	margin-bottom: 413px; /* 413px */
 }
 
 #extra-info, #extra-info-opera {
