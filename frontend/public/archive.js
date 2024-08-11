@@ -39,25 +39,25 @@ function newArchiveItem(data) {
 
 function placeArchiveItem(item) {
 	if (!isMobile) {
-		const sections = Array.prototype.slice.call(document.getElementById("archive").children)
+		const sections = document.getElementById("archive").children
 
 		for (let i = 0; i < sections.length; i++) {
 			const columns = sections[i].children
+
 			for (let j = 0; j < columns.length; j++) {
-				if (Array.prototype.slice.call(columns[j].children).length < 6) {
+				if ((columns[j].children).length < 6) {
 					columns[j].appendChild(item)
 					return
 				}
+			}
 
-				if (columns.length < 5) {
-					const column = document.createElement("div")
-						column.classList.add("column")
+			if (columns.length < 5) {
+				const column = document.createElement("div")
+					column.classList.add("column")
 
-					column.appendChild(item)
-					sections[i].appendChild(column)
-
-					return
-				}
+				column.appendChild(item)
+				sections[i].appendChild(column)
+				return
 			}
 		}
 
