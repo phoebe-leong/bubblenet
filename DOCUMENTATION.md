@@ -1,4 +1,4 @@
-# anonymous-twitter docs
+# bubblenet docs
 
 ## messages.json
 ### formatting
