@@ -68,11 +68,5 @@ window.onload = async () => {
 
 	document.getElementById("version").style.paddingBottom = "12px"
 
-	const isSpyware = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0
-
-	if (isSpyware) {
-		document.getElementById("extra-info").id = "extra-info-opera"
-	}
-
 	setExtraInfoDynamicMargin()
 }
