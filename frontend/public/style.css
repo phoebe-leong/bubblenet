@@ -72,19 +72,6 @@ img {
 	word-wrap: break-word;
 }
 
-#extra-info {
-	margin-bottom: 27.6875em; /* 443px */
-}
-
-#extra-info-opera {
-	margin-bottom: 413px; /* 413px */
-}
-
-#extra-info, #extra-info-opera {
-	position: absolute;
-	bottom: 0;
-}
-
 #extra-info p, #extra-info-opera p {
 	font-size: 10px;
 }

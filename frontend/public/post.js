@@ -24,6 +24,15 @@ function unixTimestampToReadableDate(timestamp) {
 	return `${readable.time.hour}:${readable.time.minute}${readable.time.meridian} ${readable.day}, ${readable.month} ${readable.date}, ${readable.year}`
 }
 
+function setExtraInfoDynamicMargin() {
+	const extraInfo = document.getElementById("extra-info")
+	const img = document.querySelector("img")
+	const text = document.getElementById("post-text")
+
+	extraInfo.style.marginTop = `${(img.height - text.offsetHeight) + 3}px`
+}
+
+window.addEventListener("resize", setExtraInfoDynamicMargin)
 window.onload = async () => {
 	isMobile = mobileCheck()
 
@@ -64,4 +73,6 @@ window.onload = async () => {
 	if (isSpyware) {
 		document.getElementById("extra-info").id = "extra-info-opera"
 	}
+
+	setExtraInfoDynamicMargin()
 }
