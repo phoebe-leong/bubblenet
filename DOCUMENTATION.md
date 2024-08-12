@@ -47,9 +47,7 @@ Everything related to posts will be accessed through the ``/post`` directory. To
 When an error occurs during a GET request, the response from the server will be formatted as follows:
 ```json
 {
-	"errorCode": 40, // The error code
+	"errorCode": 400, // The error code
 	"errorMessage": "Invalid post id" // The message corresponding to the code
 }
 ```  
-#### error codes
-**40:** Invalid post id
