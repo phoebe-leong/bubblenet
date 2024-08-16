@@ -101,6 +101,7 @@ img {
 }
 
 .feed-item, .archive-item {
+	width: 276.055px;
 	margin-bottom: 0.625em; /* 10px */
 
 	cursor: pointer;
