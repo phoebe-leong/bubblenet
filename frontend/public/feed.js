@@ -12,30 +12,16 @@ function newFeedItem(data) {
 
 	const container = document.createElement("div")
 		container.classList.add("feed-item")
+		container.onclick = () => {
+			window.open(`/post/${data.id}`, "_self")
+		}
 	const img = document.createElement("img")
 		img.src = (data.hasMedia) ? data.mediaLink : "/media/image-placeholder.png"
 	const text = document.createElement("p")
 		text.innerHTML = shortenedText
-	const link = document.createElement("p")
-		link.classList.add("post-link")
-		link.innerHTML = "[click to see full post]"
-		link.onclick = () => {
-			window.open(`/post/${data.id}`, "_self")
-		}
 
 	container.appendChild(img)
 	container.appendChild(text)
-
-	if (shortenedText.length < oneLineLength) {
-		container.appendChild(document.createElement("br"))
-		link.classList.add("short")
-	} else if (shortenedText.length == oneLineLength) {
-		link.classList.add("line-length")
-	}
-	
-	container.appendChild(document.createElement("br"))
-	container.appendChild(link)
-
 	return container
 }
 

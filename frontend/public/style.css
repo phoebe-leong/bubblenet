@@ -102,6 +102,12 @@ img {
 
 .feed-item, .archive-item {
 	margin-bottom: 0.625em; /* 10px */
+
+	cursor: pointer;
+}
+
+.feed-item:hover, .archive-item:hover {
+	background-color: #ececec;
 }
 
 .feed-item img, .archive-item img {
@@ -110,6 +116,8 @@ img {
 
 	float: left;
 	margin-right: 0.25em; /* 4px */
+
+	background-color: white;
 }
 
 .feed-item p, .archive-item p {
