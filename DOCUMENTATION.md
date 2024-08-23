@@ -19,7 +19,7 @@ When the client sends a request to the server, the key-value variables would be 
 	"content": "Today I saw a bird almost hit a window. It was the highlight of my day. I wonder what that says about me?",
 	"hasMedia": true,
 	"mediaLink": "https://images.pexels.com/photos/1435849/pexels-photo-1435849.jpeg?cs=srgb&dl=pexels-enginakyurt-1435849.jpg&fm=jpg",
-	"mediaFile": null
+	"mediaFile": null // This would be a FormData object if an image had been uploaded by the client
 }
 ```  
   
