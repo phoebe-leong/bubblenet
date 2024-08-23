@@ -1,7 +1,20 @@
 const express = require("express")
 const jsonfile = require("jsonfile")
+const multer = require("multer")
+const fs = require("fs")
 
 const app = express()
+
+const multerstorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, `${__dirname}/storage/images`)
+	},
+	filename: (req, file, cb) => {
+		cb(null, file.originalname)
+	}
+})
+
+const upload = multer({storage: multerstorage})
 
 const PORT = 8000
 const CHARACTERLIMIT = 650
@@ -62,7 +75,7 @@ const logger = (req, res, next) => {
 	console.log(req.url)
 	next()
 }
-app.use(logger)
+//app.use(logger)
 
 const notfound = (req, res, next) => {
 	res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
@@ -164,24 +177,27 @@ app.get("/data/subheader.txt", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
 })
 
-app.use(express.json())
-app.post("/data/messages.json", (req, res) => {
-
+app.post("/data/messages.json", upload.single("mediaFile"), (req, res) => {
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
-		res.status(400).send("Missing required JSON keys")
+		res.status(400).send("Missing required items")
+
+		fs.unlinkSync(`${__dirname}/storage/images/${req.file.originalname}`)
 		return
 	} else if (req.body.content.length > CHARACTERLIMIT) {
 		res.status(400).send("Textual content exceeds defined character limit")
+
+		fs.unlinkSync(`${__dirname}/storage/images/${req.file.originalname}`)
 		return
 	}
-
-	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
-	var message = req.body
 
 	let id = ""
 	while (id == "" || !isIdUnique(id)) {
 		id = generateId()
 	}
+	fs.renameSync(`${__dirname}/storage/images/${req.file.originalname}`, `${__dirname}/storage/images/${id}.${req.file.originalname.split('.')[1]}`)
+
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
+	var message = req.body
 
 	message.id = id
 	message.unixTimestamp = Math.trunc(Date.now() / 1000)
