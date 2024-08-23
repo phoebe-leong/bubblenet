@@ -13,16 +13,17 @@
 }
 ```  
   
-So when the client sends a new message to the server, the body would look something like this:
+When the client sends a request to the server, the key-value variables would be as follows, bundled up in multipart form data:
 ```json
 {
 	"content": "Today I saw a bird almost hit a window. It was the highlight of my day. I wonder what that says about me?",
 	"hasMedia": true,
-	"mediaLink": "https://images.pexels.com/photos/1435849/pexels-photo-1435849.jpeg?cs=srgb&dl=pexels-enginakyurt-1435849.jpg&fm=jpg"
+	"mediaLink": "https://images.pexels.com/photos/1435849/pexels-photo-1435849.jpeg?cs=srgb&dl=pexels-enginakyurt-1435849.jpg&fm=jpg",
+	"mediaFile": ""
 }
 ```  
   
-Then the server adds on the UNIX timestamp and the Id, and adds it to the ``messages.json`` file, and the *Messages* array.  
+Then the server adds on the UNIX timestamp and the Id, and adds it to the ``messages.json`` file, and the *Messages* array after the image has been extracted and save (presuming an image was uploaded at all).  
 ```json
 {
 	"Messages": [
