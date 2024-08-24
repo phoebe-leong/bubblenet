@@ -7,13 +7,22 @@ const { ImgurClient } = require("imgur")
 const app = express()
 const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
 
+const PORT = 8000
+const CHARACTERLIMIT = 650
+const FEEDLIMIT = 30
+const WINCHECKFALSE = (process.platform != "win32")
+
+const Ids = []
+
+const ALLOWEDMIMETYPES = ["image/jpeg", "image/jpg", "image/gif", "image/png", "image/apng", "image/tiff"]
+
 const multerstorage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		if (!fs.existsSync(`${__dirname}/storage/tempimages`)) {
-			fs.mkdirSync(`${__dirname}/storage/tempimages`, { recursive: true })
+		if (!fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`)) {
+			fs.mkdirSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`, { recursive: true })
 			console.log("directory made")
 		}
-		
+
 		cb(null, `${__dirname}/storage/tempimages`)
 	},
 	filename: (req, file, cb) => {
@@ -21,15 +30,6 @@ const multerstorage = multer.diskStorage({
 	}
 })
 const upload = multer({storage: multerstorage})
-
-const PORT = 8000
-const CHARACTERLIMIT = 650
-const FEEDLIMIT = 30
-const WINCHECKFALSE = (process.platform != "win32")
-
-const ALLOWEDMIMETYPES = ["image/jpeg", "image/jpg", "image/gif", "image/png", "image/apng", "image/tiff"]
-
-const Ids = []
 
 function stringToBool(string) {
 	if (string == "true") return true
@@ -194,12 +194,12 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
 
-		fs.unlinkSync(`${__dirname}/storage/tempimages/${req.file.originalname}`)
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`)
 		return
 	} else if (req.body.content.length > CHARACTERLIMIT) {
 		res.status(400).send("Textual content exceeds defined character limit")
 
-		fs.unlinkSync(`${__dirname}/storage/tempimages/${req.file.originalname}`)
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`)
 		return
 	}
 	console.log(req.body.hasMedia)
@@ -230,15 +230,15 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 			return
 		}
 
-		fs.renameSync(`${__dirname}/storage/tempimages/${req.file.originalname}`, `${__dirname}/storage/tempimages/${newfilename}`)
+		fs.renameSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`, (WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`)
 
 		const response = await imgur.upload({
-			image: fs.createReadStream(`${__dirname}/storage/tempimages/${newfilename}`),
+			image: fs.createReadStream((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`),
 			type: "stream"
 		})
 		message.mediaLink = response.data.link
 
-		fs.unlinkSync(`${__dirname}/storage/tempimages/${newfilename}`)
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`)
 	} else {
 		message.mediaLink = req.body.mediaLink
 	}
