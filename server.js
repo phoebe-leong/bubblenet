@@ -20,7 +20,6 @@ const multerstorage = multer.diskStorage({
 	destination: (req, file, cb) => {
 		if (!fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`)) {
 			fs.mkdirSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`, { recursive: true })
-			console.log("directory made")
 		}
 
 		cb(null, `${__dirname}/storage/tempimages`)
@@ -202,7 +201,6 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`)
 		return
 	}
-	console.log(req.body.hasMedia)
 
 	let message = {
 		content: req.body.content,
