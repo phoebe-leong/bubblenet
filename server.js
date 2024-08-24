@@ -2,24 +2,27 @@ const express = require("express")
 const jsonfile = require("jsonfile")
 const multer = require("multer")
 const fs = require("fs")
+const { ImgurClient } = require("imgur")
 
 const app = express()
+const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
 
 const multerstorage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, `${__dirname}/storage/images`)
+		cb(null, `${__dirname}/storage/tempimages`)
 	},
 	filename: (req, file, cb) => {
 		cb(null, file.originalname)
 	}
 })
-
 const upload = multer({storage: multerstorage})
 
 const PORT = 8000
 const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
 const WINCHECKFALSE = (process.platform != "win32")
+
+const ALLOWEDMIMETYPES = ["image/jpeg", "image/jpg", "image/gif", "image/png", "image/apng", "image/tiff"]
 
 const Ids = []
 
@@ -177,7 +180,7 @@ app.get("/data/subheader.txt", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
 })
 
-app.post("/data/messages.json", upload.single("mediaFile"), (req, res) => {
+app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
 
@@ -190,17 +193,49 @@ app.post("/data/messages.json", upload.single("mediaFile"), (req, res) => {
 		return
 	}
 
+	let message = {
+		content: req.body.content,
+		hasMedia: req.body.hasMedia
+	}
+
 	let id = ""
 	while (id == "" || !isIdUnique(id)) {
 		id = generateId()
 	}
-	fs.renameSync(`${__dirname}/storage/tempimages/${req.file.originalname}`, `${__dirname}/storage/tempimages/${id}.${req.file.originalname.split('.')[1]}`)
 
-	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
-	var message = req.body
+	if (req.file != undefined) {
+		const newfilename = `${id}.${req.file.originalname.split('.')[1]}`
+
+		let flag_acceptable = false
+		for (let i = 0; i < ALLOWEDMIMETYPES.length; i++) {
+			if (req.file.mimetype == ALLOWEDMIMETYPES[i]) {
+				flag_acceptable = true
+				break
+			}
+		}
+
+		if (!flag_acceptable) {
+			res.status(400).send("Unaccepted MIME type")
+			return
+		}
+
+		fs.renameSync(`${__dirname}/storage/tempimages/${req.file.originalname}`, `${__dirname}/storage/tempimages/${newfilename}`)
+
+		const response = await imgur.upload({
+			image: fs.createReadStream(`${__dirname}/storage/tempimages/${newfilename}`),
+			type: "stream"
+		})
+		message.mediaLink = response.data.link
+
+		fs.unlinkSync(`${__dirname}/storage/tempimages/${newfilename}`)
+	} else {
+		message.mediaLink = req.body.mediaLink
+	}
 
 	message.id = id
 	message.unixTimestamp = Math.trunc(Date.now() / 1000)
+
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 
 	file.Messages.push(message)
 	jsonfile.writeFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`, file)
