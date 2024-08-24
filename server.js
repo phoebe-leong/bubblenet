@@ -9,6 +9,11 @@ const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
 
 const multerstorage = multer.diskStorage({
 	destination: (req, file, cb) => {
+		if (!fs.existsSync(`${__dirname}/storage/tempimages`)) {
+			fs.mkdirSync(`${__dirname}/storage/tempimages`, { recursive: true })
+			console.log("directory made")
+		}
+		
 		cb(null, `${__dirname}/storage/tempimages`)
 	},
 	filename: (req, file, cb) => {
