@@ -51,4 +51,10 @@ When an error occurs during a GET request, the response from the server will be 
 	"errorCode": 400, // The error code
 	"errorMessage": "Invalid post id" // The message corresponding to the code
 }
-```  
+```
+
+### image saving
+
+In preparation for uploading to Imgur, any images recieved from the client are stored in the ``storage/tempimages`` folder and renamed to the id of the post they are associated with. Then they are uploaded to Imgur and deleted from the folder.  
+  
+After the upload, the Imgur link to the image is acquired and that becomes the ``"mediaLink"`` value of the post's JSON data, and is used to show the image to the client.
