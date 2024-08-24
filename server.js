@@ -181,12 +181,12 @@ app.post("/data/messages.json", upload.single("mediaFile"), (req, res) => {
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
 
-		fs.unlinkSync(`${__dirname}/storage/images/${req.file.originalname}`)
+		fs.unlinkSync(`${__dirname}/storage/tempimages/${req.file.originalname}`)
 		return
 	} else if (req.body.content.length > CHARACTERLIMIT) {
 		res.status(400).send("Textual content exceeds defined character limit")
 
-		fs.unlinkSync(`${__dirname}/storage/images/${req.file.originalname}`)
+		fs.unlinkSync(`${__dirname}/storage/tempimages/${req.file.originalname}`)
 		return
 	}
 
@@ -194,7 +194,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), (req, res) => {
 	while (id == "" || !isIdUnique(id)) {
 		id = generateId()
 	}
-	fs.renameSync(`${__dirname}/storage/images/${req.file.originalname}`, `${__dirname}/storage/images/${id}.${req.file.originalname.split('.')[1]}`)
+	fs.renameSync(`${__dirname}/storage/tempimages/${req.file.originalname}`, `${__dirname}/storage/tempimages/${id}.${req.file.originalname.split('.')[1]}`)
 
 	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 	var message = req.body
