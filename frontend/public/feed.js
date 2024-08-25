@@ -68,6 +68,19 @@ async function fetchFeed() {
 	}
 }
 
+async function addPins() {
+	const pinned = await fetch("/data/pinned.json")
+		.then((data) => data.json())
+
+	for (let i = pinned.Pinned.length - 1; i > -1; i--) {
+		const itemData = await fetch(`/data/${pinned.Pinned[i]}.json`)
+			.then((data) => data.json())
+		const item = newFeedItem(itemData)
+
+		document.getElementById("pinned").appendChild(item)
+	}
+}
+
 window.onload = async () => {
 	isMobile = mobileCheck()
 
@@ -83,6 +96,7 @@ window.onload = async () => {
 		window.open("/archive", "_self")
 	}
 	fetchFeed()
+	addPins()
 
 	if (isMobile) {
 		document.getElementById("version").id = "version-mobile"

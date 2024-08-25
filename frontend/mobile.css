@@ -29,6 +29,10 @@ h2 {
 
 h3 {
 	font-size: 16px;
+
+	margin: 0;
+	margin-top: 10px;
+	margin-bottom: 5px;
 }
 
 h1 a {
@@ -89,9 +93,17 @@ img {
 	padding-top: 0.25em; /* 4px */
 }
 
-#feed, #archive {
+#feed, #archive, #pinned {
 	display: flex;
 	flex-direction: column;
+}
+
+#pinned-container {
+	margin-bottom: 15px;
+	margin-right: 0.625em;
+
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
 }
 
 #feed p {

@@ -32,6 +32,12 @@ h1 a:hover {
 	text-decoration: underline;
 }
 
+h3 {
+	margin: 0;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
 button {
 	cursor: pointer;
 }
@@ -80,9 +86,21 @@ img {
 	padding-top: 0.25em; /* 4px */
 }
 
-#feed, #archive section {
+#feed, #archive section, #pinned {
 	display: flex;
 	flex-direction: row;
+}
+
+#pinned-container {
+	margin-bottom: 15px;
+	margin-right: 0.625em;
+
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+
+#pinned .feed-item {
+	margin-right: 7px;
 }
 
 #archive section {
@@ -202,6 +220,6 @@ dialog:focus-visible {
 	bottom: 0;
 }
 
-#version, #version-archive {
+#version, #version-archive, #version-feed {
 	font-size: 12px;
 }

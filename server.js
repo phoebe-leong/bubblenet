@@ -190,6 +190,10 @@ app.get("/data/subheader.txt", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
 })
 
+app.get("/data/pinned.json", (req, res) => {
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+})
+
 app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
