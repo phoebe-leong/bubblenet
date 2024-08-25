@@ -3,6 +3,7 @@ const jsonfile = require("jsonfile")
 const multer = require("multer")
 const fs = require("fs")
 const { ImgurClient } = require("imgur")
+const ip = require("ip")
 
 const app = express()
 const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
@@ -256,5 +257,5 @@ app.use(notfound)
 app.use(servererror)
 
 app.listen(PORT, () => {
-	console.log(`Listening on port ${PORT}`)
+	console.log(`Listening on ${ip.address()}:${PORT}`)
 })
