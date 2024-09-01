@@ -11,6 +11,7 @@ const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
 const PORT = 8000
 const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
+const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
 
 const Ids = []
@@ -30,6 +31,15 @@ const multerstorage = multer.diskStorage({
 	}
 })
 const upload = multer({storage: multerstorage})
+
+function itemToIndex(item, array) {
+	for (let i = 0; i < array.length; i++) {
+		if ( array[i] == item) {
+			return i
+		}
+	}
+	return -1
+}
 
 function stringToBool(string) {
 	if (string == "true") return true
@@ -119,6 +129,8 @@ app.get("/style.css", (req, res) => {
 app.use("/", express.static("frontend/public"))
 app.use("/data", express.static("storage"))
 
+app.use(express.json())
+
 app.get("/feed", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/feed.html` : `${__dirname}\\frontend\\feed.html`)
 })
@@ -129,6 +141,14 @@ app.get("/archive", (req, res) => {
 
 app.get("/post/new", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/new-post.html` : `${__dirname}\\frontend\\new-post.html`)
+})
+
+app.get("/admin", (req, res) => {
+	if (req.ip === "::1") {
+		res.sendFile(`${__dirname}/frontend/admin.html`)
+	} else {
+		res.status(401).send("Unathorised access: user is not admin")
+	}
 })
 
 app.get("/data/feed.json", (req, res) => {
@@ -194,6 +214,70 @@ app.get("/data/pinned.json", (req, res) => {
 	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
 })
 
+app.get("/data/ip.txt", (req, res) => {
+	res.send(`http://${ip.address()}:${PORT}`)
+})
+
+app.post("/data/pinned.json", (req, res) => {
+	if (req.body.pins == null || req.body.action == null) {
+		res.status(400).send("Missing required items")
+		return
+	}
+
+	const file = jsonfile.readFileSync(`${__dirname}/storage/pinned.json`)
+	if (req.body.action == "add") {
+		try {
+		let duplicate = false
+		for (let i = 0; i < req.body.pins.length; i++) {
+			if (!isIdValid(req.body.pins[i])) {
+				res.status(400).send("Invalid post id")
+				return
+			}
+
+			for (let j = 0; j < file.Pinned.length; j++) {
+				if (req.body.pins[i] == file.Pinned[j]) {
+					duplicate = true
+					break
+				}
+			}
+			if (duplicate) { duplicate = false; continue}
+
+			file.Pinned.push(req.body.pins[i])
+		}
+		} catch (err) {
+			console.error(err)
+		}
+	} else if (req.body.action == "remove") {
+		for (let i = 0; i < req.body.pins.length; i++) {
+			const index = itemToIndex(req.body.pins[i], file.Pinned)
+			if (index == -1) { continue }
+
+			if (!isIdValid(req.body.pins[i])) {
+				res.status(400).send("Invalid post id")
+				return
+			}
+			file.Pinned.splice(itemToIndex(req.body.pins[i], file.Pinned), 1)
+		}
+	}
+
+	jsonfile.writeFileSync(`${__dirname}/storage/pinned.json`, file)
+	res.send()
+})
+
+app.post("/data/subheader.txt", (req, res) => {
+	if (req.body.subheader == null) {
+		res.status(400).send("Missing required items")
+		return
+	}
+
+	if (req.body.subheader != "") {
+		fs.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`, req.body.subheader)
+		res.send()
+	} else {
+		res.status(400).send("Subheader cannot be blank")
+	}
+})
+
 app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
@@ -249,10 +333,10 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 	message.id = id
 	message.unixTimestamp = Math.trunc(Date.now() / 1000)
 
-	const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
 
 	file.Messages.push(message)
-	jsonfile.writeFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`, file)
+	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
 
 	Ids.push(message.id)
 	res.send()

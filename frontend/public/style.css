@@ -223,3 +223,12 @@ dialog:focus-visible {
 #version, #version-archive, #version-feed {
 	font-size: 12px;
 }
+
+#subheaderInput, #pinAdd, #pinRemove {
+	width: 12.33em; /* 165px */
+}
+
+#serverIP {
+	margin-top: 0;
+	padding-top: 0;
+}
