@@ -23,6 +23,10 @@ h2 {
 	margin-bottom: 0.42em; /* 10px */
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 h1 a {
 	color: black;
 	text-decoration: none;
@@ -231,4 +235,8 @@ dialog:focus-visible {
 #serverIP {
 	margin-top: 0;
 	padding-top: 0;
+}
+
+#noFeed {
+	text-align: center;
 }

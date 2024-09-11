@@ -63,6 +63,15 @@ async function fetchFeed() {
 	const feed = await fetch("/data/feed.json")
 		.then((data) => data.json())
 
+	if (feed.Feed.length == 0) {
+		const noFeed = document.createElement("p")
+			noFeed.id = "noFeed"
+			noFeed.innerHTML = "There are no posts to show. Try <a href='/post/new'>creating one</a>."
+		document.getElementById("feed").appendChild(noFeed)
+
+		document.getElementById("version-feed").id = "version"
+	}
+
 	for (let i = 0; i < feed.Feed.length; i++) {
 		placeFeedItem(newFeedItem(feed.Feed[i]))
 	}
@@ -72,12 +81,20 @@ async function addPins() {
 	const pinned = await fetch("/data/pinned.json")
 		.then((data) => data.json())
 
-	for (let i = pinned.Pinned.length - 1; i > -1; i--) {
-		const itemData = await fetch(`/data/${pinned.Pinned[i]}.json`)
-			.then((data) => data.json())
-		const item = newFeedItem(itemData)
+	if (pinned.Pinned.length == 0) {
+		const noPins = document.createElement("p")
+			noPins.innerHTML = "There are no pinned posts to show."
 
-		document.getElementById("pinned").appendChild(item)
+		document.getElementById("pinned").appendChild(noPins)
+	} else {
+
+		for (let i = pinned.Pinned.length - 1; i > -1; i--) {
+			const itemData = await fetch(`/data/${pinned.Pinned[i]}.json`)
+				.then((data) => data.json())
+			const item = newFeedItem(itemData)
+
+			document.getElementById("pinned").appendChild(item)
+		}
 	}
 }
 
