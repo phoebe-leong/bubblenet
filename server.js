@@ -179,14 +179,14 @@ app.get("/data/archive.json", (req, res) => {
 	res.send(archive)
 })
 
-app.get("/data/:id.json", (req, res) => {
-	res.setHeader("Content-Type", "application/json")
+app.get("/data/pinned.json", (req, res) => {
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+})
 
+app.get("/data/:id.json", (req, res) => {
 	if (!isIdValid(req.params.id)) {
-		res.send(JSON.stringify({
-			"errorCode": 400,
-			"errorMessage": "Invalid post id"
-		}))
+		res.status(400).send("Invalid post id")
+		return
 	} else {
 		const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
 
@@ -198,24 +198,20 @@ app.get("/data/:id.json", (req, res) => {
 	}
 })
 
+app.get("/data/subheader.txt", (req, res) => {
+	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
+})
+
+app.get("/data/ip.txt", (req, res) => {
+	res.send(`http://${ip.address()}:${PORT}`)
+})
+
 app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
 		res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/post.html` : `${__dirname}\\frontend\\post.html`)
 	} else {
 		res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
 	}
-})
-
-app.get("/data/subheader.txt", (req, res) => {
-	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/subheader.txt` : `${__dirname}\\storage\\subheader.txt`)
-})
-
-app.get("/data/pinned.json", (req, res) => {
-	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
-})
-
-app.get("/data/ip.txt", (req, res) => {
-	res.send(`http://${ip.address()}:${PORT}`)
 })
 
 app.post("/data/pinned.json", (req, res) => {
