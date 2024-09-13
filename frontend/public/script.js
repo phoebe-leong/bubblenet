@@ -12,9 +12,9 @@ async function newPost(content, link, upload) {
 			method: "POST",
 			body: fileData
 		})
-		window.location.href = "/feed"
 
 		alert("Posted!")
+		window.location.href = "/feed"
 	} else {
 		alert("Post content can not be empty")
 	}
