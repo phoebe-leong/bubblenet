@@ -207,6 +207,15 @@ dialog:focus-visible {
 	font-size: 10px; /* 12px */
 }
 
+#serverIP {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+#noFeed {
+	text-align: center;
+}
+
 #textarea-container {
 	width: 267.055px;
 }
