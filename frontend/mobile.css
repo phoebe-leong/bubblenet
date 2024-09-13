@@ -206,3 +206,16 @@ dialog:focus-visible {
 #version, #version-archive, #version-mobile {
 	font-size: 10px; /* 12px */
 }
+
+#textarea-container {
+	width: 267.055px;
+}
+
+#character-amnt {
+	font-size: 12px;
+
+	padding: 0;
+	margin: 0;
+
+	float: right;
+}
