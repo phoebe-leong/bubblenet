@@ -240,3 +240,16 @@ dialog:focus-visible {
 #noFeed {
 	text-align: center;
 }
+
+#textarea-container {
+	width: 267.055px;
+}
+
+#character-amnt {
+	font-size: 12px;
+
+	padding: 0;
+	margin: 0;
+
+	float: right;
+}

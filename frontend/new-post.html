@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="/style.css">
 		<script src="/script.js"></script>
 		<script src="/subheader.js"></script>
+		<script src="/characters.js"></script>
 	</head>
 	<body>
 		<h1><a href="/feed">BubbleNet</a></h1>
@@ -22,7 +23,9 @@
 			<h3>Create a new post</h3>
 
 			<label>Post content</label><br>
-			<textarea required maxlength="650"></textarea><br><br>
+			<div id="textarea-container">
+				<textarea required maxlength="650"></textarea><p id="character-amnt"></p>
+			</div><br><br>
 
 			<label>Image/GIF URL (optional)</label><br>
 			<input type="url"><br><br>
