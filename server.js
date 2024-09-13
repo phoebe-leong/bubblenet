@@ -225,6 +225,8 @@ app.post("/data/pinned.json", (req, res) => {
 		try {
 		let duplicate = false
 		for (let i = 0; i < req.body.pins.length; i++) {
+			req.body.pins[i] = req.body.pins[i].trim()
+
 			if (!isIdValid(req.body.pins[i])) {
 				res.status(400).send("Invalid post id")
 				return
@@ -245,6 +247,8 @@ app.post("/data/pinned.json", (req, res) => {
 		}
 	} else if (req.body.action == "remove") {
 		for (let i = 0; i < req.body.pins.length; i++) {
+			req.body.pins[i] = req.body.pins[i].trim()
+			
 			const index = itemToIndex(req.body.pins[i], file.Pinned)
 			if (index == -1) { continue }
 
