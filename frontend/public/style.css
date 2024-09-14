@@ -237,7 +237,7 @@ dialog:focus-visible {
 	padding-top: 0;
 }
 
-#noFeed {
+#noFeed, #noArchive {
 	text-align: center;
 }
 

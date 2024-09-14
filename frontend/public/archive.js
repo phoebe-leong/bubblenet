@@ -75,8 +75,17 @@ async function fetchArchive() {
 	const archive = await fetch("/data/archive.json")
 		.then((data) => data.json())
 
-	for (let i = 0; i < archive.Archive.length; i++) {
-		placeArchiveItem(newArchiveItem(archive.Archive[i]))
+	if (archive.Archive.length == 0) {
+		const noArchive = document.createElement("p")
+			noArchive.id = "noArchive"
+			noArchive.innerHTML = "There are no archived posts to show."
+		document.getElementById("archive").appendChild(noArchive)
+
+		document.getElementById("version-archive").id = "version"
+	} else {
+		for (let i = 0; i < archive.Archive.length; i++) {
+			placeArchiveItem(newArchiveItem(archive.Archive[i]))
+		}
 	}
 }
 
