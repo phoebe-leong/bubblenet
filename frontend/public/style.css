@@ -99,8 +99,8 @@ img {
 	margin-bottom: 15px;
 	margin-right: 0.625em;
 
-	border-bottom: 1px solid black;
-	border-top: 1px solid black;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
 }
 
 #pinned .feed-item {
@@ -252,4 +252,22 @@ dialog:focus-visible {
 	margin: 0;
 
 	float: right;
+}
+
+#theme-btn {
+	position: absolute;
+	right: 0;
+
+	font-size: 15px;
+	text-decoration: underline;
+	cursor: pointer;
+
+	padding: 0;
+	margin: 0;
+
+	margin-right: 10px;
+}
+
+#theme-btn:hover {
+	text-decoration: none;
 }

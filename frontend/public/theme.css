@@ -1,0 +1,25 @@
+#light-theme {
+	background-color: white;
+	color: black;
+}
+
+#light-theme h1 a {
+	color: black;
+}
+
+#light-theme #pinned-container {
+	border-color: black;
+}
+
+#dark-theme {
+	background-color: black;
+	color: white;
+}
+
+#dark-theme h1 a {
+	color: white;
+}
+
+#dark-theme #pinned-container {
+	border-color: white;
+}

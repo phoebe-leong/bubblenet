@@ -98,7 +98,7 @@ const logger = (req, res, next) => {
 	console.log(req.url)
 	next()
 }
-//app.use(logger)
+app.use(logger)
 
 const notfound = (req, res, next) => {
 	res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
@@ -345,5 +345,13 @@ app.use(notfound)
 app.use(servererror)
 
 app.listen(PORT, () => {
-	console.log(`Listening on ${ip.address()}:${PORT}`)
+	const portMessage = `Listening on ${ip.address()}:${PORT}`
+	let portBorder = ""
+
+	for (let i = 0; i < portMessage.length; i++) {
+		portBorder += "-"
+	}
+
+	console.log(portMessage)
+	console.log(portBorder)
 })
