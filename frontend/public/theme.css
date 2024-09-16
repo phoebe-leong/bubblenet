@@ -11,6 +11,14 @@
 	border-color: black;
 }
 
+#light-theme dialog {
+	background-color: white;
+}
+
+#light-theme .feed-item:hover, #light-theme .archive-item:hover {
+	background-color: #ececec;
+}
+
 #dark-theme {
 	background-color: black;
 	color: white;
@@ -22,4 +30,12 @@
 
 #dark-theme #pinned-container {
 	border-color: white;
+}
+
+#dark-theme dialog {
+	background-color: black;
+}
+
+#dark-theme .feed-item:hover, #dark-theme .archive-item:hover {
+	background-color: #131313;
 }

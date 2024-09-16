@@ -129,10 +129,6 @@ img {
 	cursor: pointer;
 }
 
-.feed-item:hover, .archive-item:hover {
-	background-color: #ececec;
-}
-
 .feed-item img, .archive-item img {
 	width: 4.375em; /* 70px */
 	height: 4.375em; /* 70px */
