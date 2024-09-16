@@ -70,6 +70,7 @@ async function fetchFeed() {
 		document.getElementById("feed").appendChild(noFeed)
 
 		document.getElementById("version-feed").id = "version"
+		document.getElementById("feed").style.display = "initial"
 	}
 
 	for (let i = 0; i < feed.Feed.length; i++) {
