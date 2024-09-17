@@ -65,8 +65,12 @@ window.onload = async () => {
 	document.getElementById("post-id").innerHTML = `Post Id: ${id}`
 
 	document.body.appendChild(container)
-
+	setExtraInfoDynamicMargin()
 	document.getElementById("version").style.paddingBottom = "12px"
 
-	setExtraInfoDynamicMargin()
+	const postId = document.getElementById("post-id")
+	postId.addEventListener("click", () => {
+		navigator.clipboard.writeText(window.location.pathname.split('/')[2])
+		alert("Copied post id!")
+	})
 }

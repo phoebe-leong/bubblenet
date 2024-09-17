@@ -54,6 +54,10 @@ button {
 	margin-left: 0.625em; /* 10px */
 }
 
+#post-id:hover {
+	cursor: pointer;
+}
+
 img {
 	border: 1px solid black;
 }

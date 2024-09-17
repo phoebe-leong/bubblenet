@@ -117,6 +117,6 @@ window.onload = async () => {
 	addPins()
 
 	if (isMobile) {
-		document.getElementById("version").id = "version-mobile"
+		document.getElementById("version-feed").id = "version-mobile"
 	}
 }
