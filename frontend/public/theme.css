@@ -11,12 +11,16 @@
 	border-color: black;
 }
 
-#light-theme dialog {
+#light-theme dialog, #light-theme img {
 	background-color: white;
 }
 
 #light-theme .feed-item:hover, #light-theme .archive-item:hover {
 	background-color: #ececec;
+}
+
+#light-theme img {
+	border-color: black;
 }
 
 #dark-theme {
@@ -32,10 +36,14 @@
 	border-color: white;
 }
 
-#dark-theme dialog {
+#dark-theme dialog, #dark-theme img {
 	background-color: black;
 }
 
 #dark-theme .feed-item:hover, #dark-theme .archive-item:hover {
 	background-color: #131313;
+}
+
+#dark-theme img {
+	border-color: white;
 }
