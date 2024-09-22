@@ -98,7 +98,7 @@ const logger = (req, res, next) => {
 	console.log(req.url)
 	next()
 }
-app.use(logger)
+//app.use(logger)
 
 const notfound = (req, res, next) => {
 	res.status(404).sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/notfound.html` : `${__dirname}\\frontend\\notfound.html`)
@@ -127,8 +127,6 @@ app.get("/style.css", (req, res) => {
 })
 
 app.use("/", express.static("frontend/public"))
-app.use("/data", express.static("storage"))
-
 app.use(express.json())
 
 app.get("/feed", (req, res) => {
@@ -180,7 +178,17 @@ app.get("/data/archive.json", (req, res) => {
 })
 
 app.get("/data/pinned.json", (req, res) => {
-	res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+	console.log("hello")
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+
+	if (file.Pinned.length > 5) {
+		while (file.Pinned.length > 5) {
+			file.Pinned.pop()
+		}
+		res.send(file)
+	} else {
+		res.sendFile((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+	}
 })
 
 app.get("/data/:id.json", (req, res) => {
@@ -206,6 +214,8 @@ app.get("/data/ip.txt", (req, res) => {
 	res.send(`http://${ip.address()}:${PORT}`)
 })
 
+app.use("/data", express.static("storage"))
+
 app.get("/post/:id", (req, res) => {
 	if (isIdValid(req.params.id)) {
 		res.sendFile((WINCHECKFALSE) ? `${__dirname}/frontend/post.html` : `${__dirname}\\frontend\\post.html`)
@@ -223,8 +233,11 @@ app.post("/data/pinned.json", (req, res) => {
 	const file = jsonfile.readFileSync(`${__dirname}/storage/pinned.json`)
 	if (req.body.action == "add") {
 		try {
+		const totalLength = file.Pinned.length + req.body.pins.length
+		const maxPinned = (totalLength > 5) ? (totalLength - (totalLength - 5)) - file.Pinned.length : req.body.pins.length
+
 		let duplicate = false
-		for (let i = 0; i < req.body.pins.length; i++) {
+		for (let i = 0; i < maxPinned; i++) {
 			req.body.pins[i] = req.body.pins[i].trim()
 
 			if (!isIdValid(req.body.pins[i])) {
@@ -238,7 +251,7 @@ app.post("/data/pinned.json", (req, res) => {
 					break
 				}
 			}
-			if (duplicate) { duplicate = false; continue}
+			if (duplicate) { duplicate = false; continue }
 
 			file.Pinned.push(req.body.pins[i])
 		}
@@ -352,6 +365,7 @@ app.listen(PORT, () => {
 		portBorder += "-"
 	}
 
+	process.stdout.write('\x1Bc')
 	console.log(portMessage)
 	console.log(portBorder)
 })
