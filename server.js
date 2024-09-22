@@ -178,7 +178,6 @@ app.get("/data/archive.json", (req, res) => {
 })
 
 app.get("/data/pinned.json", (req, res) => {
-	console.log("hello")
 	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
 
 	if (file.Pinned.length > 5) {
