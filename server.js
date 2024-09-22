@@ -13,6 +13,7 @@ const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
+const LOCALSTORAGEON = false
 
 const Ids = []
 
@@ -20,11 +21,13 @@ const ALLOWEDMIMETYPES = ["image/jpeg", "image/jpg", "image/gif", "image/png", "
 
 const multerstorage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		if (!fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`)) {
-			fs.mkdirSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`, { recursive: true })
+		const imageDir = (!LOCALSTORAGEON) ? "tempimages" : "images"
+
+		if (!fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}` : `${__dirname}\\storage\\${imageDir}`)) {
+			fs.mkdirSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}` : `${__dirname}\\storage\\${imageDir}`, { recursive: true })
 		}
 
-		cb(null, `${__dirname}/storage/tempimages`)
+		cb(null, `${__dirname}/storage/${imageDir}`)
 	},
 	filename: (req, file, cb) => {
 		cb(null, file.originalname)
@@ -291,15 +294,17 @@ app.post("/data/subheader.txt", (req, res) => {
 })
 
 app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
+	const imageDir = (!LOCALSTORAGEON) ? "tempimages" : "images"
+
 	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
 		res.status(400).send("Missing required items")
 
-		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`)
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`)
 		return
 	} else if (req.body.content.length > CHARACTERLIMIT) {
 		res.status(400).send("Textual content exceeds defined character limit")
 
-		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`)
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`)
 		return
 	}
 
@@ -329,15 +334,19 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 			return
 		}
 
-		fs.renameSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${req.file.originalname}` : `${__dirname}\\storage\\tempimages\\${req.file.originalname}`, (WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`)
+		fs.renameSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`, (WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${newfilename}` : `${__dirname}\\storage\\${imageDir}\\${newfilename}`)
 
-		const response = await imgur.upload({
-			image: fs.createReadStream((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`),
-			type: "stream"
-		})
-		message.mediaLink = response.data.link
+		if (!LOCALSTORAGEON) {
+			const response = await imgur.upload({
+				image: fs.createReadStream((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`),
+				type: "stream"
+			})
+			message.mediaLink = response.data.link
 
-		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`)
+			fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`)
+		} else {
+			message.mediaLink = `/data/images/${newfilename}`
+		}
 	} else {
 		message.mediaLink = req.body.mediaLink
 	}
@@ -352,6 +361,10 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 
 	Ids.push(message.id)
 	res.send()
+
+	if (fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`)) {
+		fs.rmdirSync(`${__dirname}/storage/tempimages`)
+	}
 })
 app.use(notfound)
 app.use(servererror)
