@@ -337,6 +337,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 		fs.renameSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`, (WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${newfilename}` : `${__dirname}\\storage\\${imageDir}\\${newfilename}`)
 
 		if (!LOCALSTORAGEON) {
+			res.send()
 			const response = await imgur.upload({
 				image: fs.createReadStream((WINCHECKFALSE) ? `${__dirname}/storage/tempimages/${newfilename}` : `${__dirname}\\storage\\tempimages\\${newfilename}`),
 				type: "stream"
