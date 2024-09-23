@@ -4,6 +4,7 @@ async function newPost(content, link, upload) {
 			fileData.append("content", content)
 			fileData.append("mediaLink", link)
 			fileData.append("mediaFile", upload.files[0])
+			fileData.append("views", "0")
 
 		const hasMedia = (link == "" && document.getElementById("upload").value == "") ? "false" : "true"
 		fileData.append("hasMedia", hasMedia)

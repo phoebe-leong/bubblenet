@@ -293,11 +293,30 @@ app.post("/data/subheader.txt", (req, res) => {
 	}
 })
 
+app.post("/data/views.json", (req, res) => {
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
+
+	for (let i = 0; i < file.Messages.length; i++) {
+		if (file.Messages[i].views == null) { continue }
+		if (file.Messages[i].id == req.body.id) {
+			file.Messages[i].views = req.body.views
+		}
+	}
+
+	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
+	res.send()
+})
+
 app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
 	const imageDir = (!LOCALSTORAGEON) ? "tempimages" : "images"
 
-	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null) {
+	if (req.body.content == null || req.body.hasMedia == null || req.body.mediaLink == null || req.body.views == null) {
 		res.status(400).send("Missing required items")
+
+		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`)
+		return
+	} else if (Number(req.body.views) == NaN) {
+		res.status(400).send("View count must be a number")
 
 		fs.unlinkSync((WINCHECKFALSE) ? `${__dirname}/storage/${imageDir}/${req.file.originalname}` : `${__dirname}\\storage\\${imageDir}\\${req.file.originalname}`)
 		return
@@ -310,6 +329,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 
 	let message = {
 		content: req.body.content,
+		views: Number(req.body.views),
 		hasMedia: stringToBool(req.body.hasMedia)
 	}
 

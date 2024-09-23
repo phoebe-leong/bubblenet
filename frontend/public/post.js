@@ -64,6 +64,10 @@ window.onload = async () => {
 	document.getElementById("unix-time").innerHTML = `Posted: ${unixTimestampToReadableDate(data.unixTimestamp)}`
 	document.getElementById("post-id").innerHTML = `Post Id: ${id}`
 
+	if (data.views != null) {
+		document.getElementById("views").innerHTML = `Views: ${data.views}`
+	}
+
 	document.body.appendChild(container)
 	setExtraInfoDynamicMargin()
 	document.getElementById("version").style.paddingBottom = "12px"
@@ -72,5 +76,15 @@ window.onload = async () => {
 	postId.addEventListener("click", () => {
 		navigator.clipboard.writeText(window.location.pathname.split('/')[2])
 		alert("Copied post id!")
+	})
+	await fetch("/data/views.json", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			id: window.location.pathname.split('/')[2],
+			views: data.views + 1
+		})
 	})
 }
