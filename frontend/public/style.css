@@ -228,8 +228,12 @@ dialog:focus-visible {
 	font-size: 12px;
 }
 
-#subheaderInput, #pinAdd, #pinRemove {
+#subheaderInput {
 	width: 12.33em; /* 165px */
+}
+
+#pinAdd, #pinRemove {
+	width: 16.88em; /* 225px */
 }
 
 #serverIP {
