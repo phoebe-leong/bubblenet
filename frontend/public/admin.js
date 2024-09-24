@@ -43,6 +43,15 @@ async function applyChanges() {
 	location.reload()
 }
 
+async function nuke() {
+	if (confirm("Are you sure you want to delete ALL posts?\nThis is IRREVERSABLE. All posts will be deleted FOREVER.")) {
+		await fetch("/data/messages.json", {
+			method: "DELETE"
+		})
+		alert("All posts deleted.")
+	}
+}
+
 window.onload = async () => {
 	const ip = await fetch("/data/ip.txt")
 		.then((data) => data.text())

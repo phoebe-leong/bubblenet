@@ -383,6 +383,22 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 	Ids.push(message.id)
 	res.send()
 })
+
+app.delete("/data/messages.json", (req, res) => {
+	let file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
+	while (file.Messages.length != 0) {
+		file.Messages.pop()
+	}
+	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
+
+	file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+	while (file.Pinned.length != 0) {
+		file.Pinned.pop()
+	}
+	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`, file)
+
+	res.status(204).send()
+})
 app.use(notfound)
 app.use(servererror)
 
