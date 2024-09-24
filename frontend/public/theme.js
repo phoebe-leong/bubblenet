@@ -13,10 +13,7 @@ function addListener() {
 			localStorage.setItem("theme", "light")
 		}
 		setTheme()
-
-		console.log("yeahhh")
 	})
-	console.log("worked")
 }
 
 setTheme()
