@@ -382,10 +382,6 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 
 	Ids.push(message.id)
 	res.send()
-
-	if (fs.existsSync((WINCHECKFALSE) ? `${__dirname}/storage/tempimages` : `${__dirname}\\storage\\tempimages`)) {
-		fs.rmdirSync(`${__dirname}/storage/tempimages`)
-	}
 })
 app.use(notfound)
 app.use(servererror)
