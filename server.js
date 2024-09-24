@@ -13,7 +13,7 @@ const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
-const LOCALSTORAGEON = false
+const LOCALSTORAGEON = (process.env.LOCALSTORAGEON != undefined) ? stringToBool(process.env.LOCALSTORAGEON) : false
 
 const Ids = []
 
