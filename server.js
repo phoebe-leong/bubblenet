@@ -198,7 +198,7 @@ app.get("/data/:id.json", (req, res) => {
 		res.status(400).send("Invalid post id")
 		return
 	} else {
-		const file = jsonfile.readFileSync((WINCHECKFALSE) ? "./storage/messages.json" : `${__dirname}\\storage\\messages.json`)
+		const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
 
 		for (let i = 0; i < file.Messages.length; i++) {
 			if (file.Messages[i].id === req.params.id) {
