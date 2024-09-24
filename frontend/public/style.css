@@ -44,6 +44,9 @@ h3 {
 
 button {
 	cursor: pointer;
+	border: 0.5px solid;
+
+	background: transparent;
 }
 
 #controls button {
