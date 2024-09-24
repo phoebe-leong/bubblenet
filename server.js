@@ -183,8 +183,8 @@ app.get("/data/archive.json", (req, res) => {
 app.get("/data/pinned.json", (req, res) => {
 	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
 
-	if (file.Pinned.length > 5) {
-		while (file.Pinned.length > 5) {
+	if (file.Pinned.length > MAXPINS) {
+		while (file.Pinned.length > MAXPINS) {
 			file.Pinned.pop()
 		}
 		res.send(file)
@@ -236,7 +236,7 @@ app.post("/data/pinned.json", (req, res) => {
 	if (req.body.action == "add") {
 		try {
 		const totalLength = file.Pinned.length + req.body.pins.length
-		const maxPinned = (totalLength > 5) ? (totalLength - (totalLength - 5)) - file.Pinned.length : req.body.pins.length
+		const maxPinned = (totalLength > MAXPINS) ? (totalLength - (totalLength - MAXPINS)) - file.Pinned.length : req.body.pins.length
 
 		let duplicate = false
 		for (let i = 0; i < maxPinned; i++) {
