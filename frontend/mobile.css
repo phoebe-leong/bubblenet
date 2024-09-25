@@ -1,9 +1,52 @@
-html, textarea {
-	font-family: serif;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.montserrat-light {
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 300;
+	font-style: normal;
+	font-variation-settings:
+  		"wdth" 100;
 }
 
-p, #subheader {
-	font-size: 13px;
+.montserrat-regular {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-header {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-subheader {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-subsubheader {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+p, label, textarea {
+	font-size: 12px;
 }
 
 body {
@@ -28,11 +71,19 @@ h2 {
 }
 
 h3 {
-	font-size: 16px;
+	font-size: 15px;
 
 	margin: 0;
 	margin-top: 10px;
 	margin-bottom: 5px;
+}
+
+h4 {
+	font-size: 11px;
+}
+
+h4 {
+	font-size: 12px;
 }
 
 h1 a {
@@ -40,12 +91,11 @@ h1 a {
 	text-decoration: none;
 }
 
-h1 a:hover {
-	text-decoration: underline;
-}
-
 button {
 	cursor: pointer;
+
+	border: 0.7px solid;
+	background: transparent;
 }
 
 #controls button {
@@ -120,10 +170,6 @@ img {
 
 	float: left;
 	margin-right: 0.25em; /* 4px */
-}
-
-.feed-item p, .archive-item p {
-	font-size: 13px; /* 14px */
 }
 
 .post-link {
@@ -203,8 +249,8 @@ dialog:focus-visible {
 	bottom: 0;
 }
 
-#version, #version-archive, #version-mobile {
-	font-size: 10px; /* 12px */
+#version, #version-archive {
+	font-size: 8px;
 }
 
 #serverIP {
@@ -233,7 +279,7 @@ dialog:focus-visible {
 	position: absolute;
 	right: 0;
 
-	font-size: 11px;
+	font-size: 8px;
 	text-decoration: underline;
 
 	padding: 0;
