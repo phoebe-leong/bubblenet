@@ -17,28 +17,28 @@
 		<script src="/characters.js"></script>
 	</head>
 	<body>
-		<p id="theme-btn">Change theme</p>
+		<p id="theme-btn" class="montserrat-regular">Change theme</p>
 		
-		<h1><a href="/feed">BubbleNet</a></h1>
-		<h4 id="subheader"></h4>
+		<h1 class="montserrat-header"><a href="/feed">BubbleNet</a></h1>
+		<h4 id="subheader" class="montserrat-subsubheader"></h4>
 
 		<br>
 		<div id="content">
-			<h3>Create a new post</h3>
+			<h3 class="montserrat-subheader">Create a new post</h3>
 
-			<label>Post content</label><br>
+			<label class="montserrat-regular">Post content</label><br>
 			<div id="textarea-container">
-				<textarea required maxlength="650"></textarea><p id="character-amnt"></p>
+				<textarea required maxlength="650" class="montserrat-regular"></textarea><p id="character-amnt" class="montserrat-light"></p>
 			</div><br><br>
 
-			<label>Image/GIF URL (optional)</label><br>
+			<label class="montserrat-regular">Image/GIF URL (optional)</label><br>
 			<input type="url"><br><br>
 			
-			<label>Upload an image/GIF (optional)</label><br>
+			<label class="montserrat-regular">Upload an image/GIF (optional)</label><br>
 			<input id="upload" type="file" accept="image/jpeg, image/jpg, image/gif, image/png, image/apng, image/tiff"><br><br>
 
 			<button onclick="newPost(document.querySelector('textarea').value, document.querySelector('input').value, document.getElementById('upload'))">Post</button>
-			<p id="version">BubbleNet version 2 <a href="https://github.com/phoebe-leong/bubblenet/releases" target="_blank">[see version history]</a></p>
+			<p id="version" class="montserrat-light">BubbleNet version 2 <a href="https://github.com/phoebe-leong/bubblenet/releases" target="_blank">[see version history]</a></p>
 		</div>
 		<script src="/theme.js"></script>
 	</body>

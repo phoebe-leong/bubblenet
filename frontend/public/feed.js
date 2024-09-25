@@ -19,6 +19,7 @@ function newFeedItem(data) {
 		img.src = (data.hasMedia) ? data.mediaLink : "/media/image-placeholder.png"
 	const text = document.createElement("p")
 		text.innerHTML = shortenedText
+		text.classList.add("montserrat-regular")
 
 	container.appendChild(img)
 	container.appendChild(text)

@@ -1,10 +1,57 @@
-html, textarea {
-	font-family: serif;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.montserrat-light {
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	font-variation-settings:
+  		"wdth" 100;
+}
+
+.montserrat-regular {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-header {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-subheader {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
+}
+
+.montserrat-subsubheader {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+  	"wdth" 100;
 }
 
 body {
 	padding: 0;
 	margin: 0;
+}
+
+p, h4, label {
+	font-size: 14px;
 }
 
 h1, h4 {
@@ -40,11 +87,13 @@ h3 {
 	margin: 0;
 	margin-top: 10px;
 	margin-bottom: 5px;
+
+	font-size: 16px;
 }
 
 button {
 	cursor: pointer;
-	border: 0.5px solid;
+	border: 0.7px solid;
 
 	background: transparent;
 }
@@ -87,10 +136,12 @@ img {
 	overflow: hidden;
 
 	word-wrap: break-word;
+
+	font-size: 13px;
 }
 
 #extra-info p, #extra-info-opera p {
-	font-size: 10px;
+	font-size: 8.6px;
 }
 
 #unix-time {
@@ -147,7 +198,7 @@ img {
 }
 
 .feed-item p, .archive-item p {
-	font-size: 14px;
+	font-size: 11.5px;
 }
 
 .post-link {
@@ -170,10 +221,10 @@ img {
 }
 
 textarea {
-	font-size: 14.5px;
+	font-size: 12px;
 
-	width: 17.6em; /* 255px */
-	height: 6.1em; /* 89px */
+	width: 21.5em; /* 255px */
+	height: 7.1em; /* 89px */
 
 	padding: 0.34em; /* 5px */
 }
@@ -253,7 +304,7 @@ dialog:focus-visible {
 }
 
 #character-amnt {
-	font-size: 12px;
+	font-size: 10.7px;
 
 	padding: 0;
 	margin: 0;
@@ -265,7 +316,7 @@ dialog:focus-visible {
 	position: absolute;
 	right: 0;
 
-	font-size: 15px;
+	font-size: 12px;
 	text-decoration: underline;
 	cursor: pointer;
 

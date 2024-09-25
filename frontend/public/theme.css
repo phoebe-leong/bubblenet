@@ -1,10 +1,15 @@
+:root {
+	--primary-black: #121212;
+	--primary-white: white;
+}
+
 #light-theme {
-	background-color: white;
-	color: black;
+	background-color: var(--primary-white);
+	color: var(--primary-black);
 }
 
 #light-theme a {
-	color: black;
+	color: var(--primary-black);
 }
 
 #light-theme #pinned-container, #light-theme img {
@@ -12,16 +17,16 @@
 }
 
 #light-theme dialog, #light-theme img {
-	background-color: white;
+	background-color: var(--primary-white);
 }
 
 #light-theme button {
-	color: black;
+	color: var(--primary-black);
 }
 
 #light-theme button:hover {
-	color: white;
-	background-color: black;
+	color: var(--primary-white);
+	background-color: var(--primary-black);
 }
 
 #light-theme .feed-item:hover, #light-theme .archive-item:hover {
@@ -31,29 +36,29 @@
 /* ----------------------------------------------------------- */
 
 #dark-theme {
-	background-color: #121212;
-	color: white;
+	background-color: var(--primary-black);
+	color: var(--primary-white);
 }
 
 #dark-theme a {
-	color: white;
+	color: var(--primary-white);
 }
 
-#dark-theme #pinned-container, #dark-theme img, #dark-theme button {
+#dark-theme #pinned-container, #dark-theme img {
 	border-color: #545454;
 }
 
 #dark-theme dialog, #dark-theme img {
-	background-color: #121212;
+	background-color: var(--primary-black);
 }
 
 #dark-theme button {
-	color: white;
+	color: var(--primary-white);
 }
 
 #dark-theme button:hover {
-	background-color: white;
-	color: #121212;
+	background-color: var(--primary-white);
+	color: var(--primary-black);
 }
 
 #dark-theme .feed-item:hover, #dark-theme .archive-item:hover {
