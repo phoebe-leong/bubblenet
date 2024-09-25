@@ -193,8 +193,6 @@ img {
 
 	float: left;
 	margin-right: 0.25em; /* 4px */
-
-	background-color: white;
 }
 
 .feed-item p, .archive-item p {
@@ -328,4 +326,8 @@ dialog:focus-visible {
 
 #theme-btn:hover {
 	text-decoration: none;
+}
+
+button, img {
+	border-radius: 2px;
 }
