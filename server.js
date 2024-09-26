@@ -4,6 +4,7 @@ const multer = require("multer")
 const fs = require("fs")
 const { ImgurClient } = require("imgur")
 const ip = require("ip")
+const markdown = require("markdown-it")
 
 const PORT = 8000
 const CHARACTERLIMIT = 650
@@ -14,6 +15,7 @@ const LOCALSTORAGEON = (accessServerConfig("localImageStorage") != undefined) ? 
 
 const app = express()
 const imgur = new ImgurClient({clientId: accessServerConfig("imgurClientId")})
+const md = markdown()
 
 const Ids = []
 
@@ -367,7 +369,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 	}
 
 	let message = {
-		content: req.body.content,
+		content: md.render(req.body.content).replace(/<p>||<\/p>/g, ""),
 		views: Number(req.body.views),
 		hasMedia: stringToBool(req.body.hasMedia)
 	}
