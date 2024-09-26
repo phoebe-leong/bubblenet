@@ -426,19 +426,23 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 })
 
 app.delete("/data/messages.json", (req, res) => {
-	let file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
-	while (file.Messages.length != 0) {
-		file.Messages.pop()
-	}
-	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
+	if (req.ip === "::1") {
+		let file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`)
+		while (file.Messages.length != 0) {
+			file.Messages.pop()
+		}
+		jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
 
-	file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
-	while (file.Pinned.length != 0) {
-		file.Pinned.pop()
-	}
-	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`, file)
+		file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`)
+		while (file.Pinned.length != 0) {
+			file.Pinned.pop()
+		}
+		jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/pinned.json` : `${__dirname}\\storage\\pinned.json`, file)
 
-	res.status(204).send()
+		res.status(204).send()
+	} else {
+		res.status(401).send("Unathorised access: user is not admin")
+	}
 })
 app.use(notfound)
 app.use(servererror)
