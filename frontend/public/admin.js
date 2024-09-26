@@ -2,6 +2,10 @@ async function applyChanges() {
 	const subheaderInput = document.getElementById("subheaderInput").value
 	const pinAdd = document.getElementById("pinAdd").value
 	const pinRemove = document.getElementById("pinRemove").value
+	const imgurClient = document.getElementById("imgurClient").value
+
+	const storageOn = document.getElementById("storageOn").checked
+	const storageOff = document.getElementById("storageOff").checked
 
 	if (pinAdd != "") {
 		await fetch("/data/pinned.json", {
@@ -40,6 +44,25 @@ async function applyChanges() {
 			})
 		})
 	}
+
+	if (imgurClient != "" || storageOn || storageOff) {
+		let localStorageOn = undefined
+		if (storageOn && !storageOff) { localStorageOn = true }
+		else { localStorageOn = false }
+
+		await fetch("/data/serverconfig.json", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				imgurClientId: imgurClient,
+				localImageStorage: localStorageOn
+			})
+		})
+	}
+
+	alert("Changes saved")
 	location.reload()
 }
 
@@ -56,4 +79,15 @@ window.onload = async () => {
 	const ip = await fetch("/data/ip.txt")
 		.then((data) => data.text())
 	document.getElementById("serverIP").innerHTML += ip
+
+	const config = await fetch("/data/serverconfig.json")
+		.then((data) => data.json())
+	const localStorageOn = (config.localImageStorage) ? "ON" : "OFF"
+
+	document.getElementById("localStorageLabel").innerHTML = `Local Image Storage is <strong>${localStorageOn}</strong>. Changes will come into effect after server restart.`
+	if (localStorageOn == "ON") {
+		document.getElementById("storageOn").checked = true
+	} else {
+		document.getElementById("storageOff").checked = true
+	}
 }

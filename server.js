@@ -5,15 +5,15 @@ const fs = require("fs")
 const { ImgurClient } = require("imgur")
 const ip = require("ip")
 
-const app = express()
-const imgur = new ImgurClient({clientId: process.env.CLIENT_ID})
-
 const PORT = 8000
 const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
-const LOCALSTORAGEON = (process.env.LOCALSTORAGEON != undefined) ? stringToBool(process.env.LOCALSTORAGEON) : false
+const LOCALSTORAGEON = (accessServerConfig("localImageStorage") != undefined) ? accessServerConfig("localImageStorage") : false
+
+const app = express()
+const imgur = new ImgurClient({clientId: accessServerConfig("imgurClientId")})
 
 const Ids = []
 
@@ -34,6 +34,16 @@ const multerstorage = multer.diskStorage({
 	}
 })
 const upload = multer({storage: multerstorage})
+
+function accessServerConfig(value) {
+	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
+	if (value == "imgurClientId") {
+		return file.imgurClientId
+	} else if (value == "localImageStorage") {
+		return file.localImageStorage
+	}
+	return null
+}
 
 function itemToIndex(item, array) {
 	for (let i = 0; i < array.length; i++) {
@@ -193,6 +203,14 @@ app.get("/data/pinned.json", (req, res) => {
 	}
 })
 
+app.get("/data/serverconfig.json", (req, res) => {
+	if (req.ip === "::1") {
+		res.sendFile((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
+	} else {
+		res.status(401).send("Unathorised access: user is not admin")
+	}
+})
+
 app.get("/data/:id.json", (req, res) => {
 	if (!isIdValid(req.params.id)) {
 		res.status(400).send("Invalid post id")
@@ -305,6 +323,27 @@ app.post("/data/views.json", (req, res) => {
 
 	jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/storage/messages.json` : `${__dirname}\\storage\\messages.json`, file)
 	res.send()
+})
+
+app.post("/data/serverconfig.json", (req, res) => {
+	if (req.ip === "::1") {
+		if (req.body.localImageStorage == null && req.body.imgurClientId == null) {
+			res.status(400).send("Missing required items")
+			return
+		}
+
+		const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
+		if (req.body.localImageStorage != null && req.body.localImageStorage != undefined) {
+			file.localImageStorage = req.body.localImageStorage
+		}
+		if (req.body.imgurClientId != null) {
+			file.imgurClientId = req.body.imgurClientId
+		}
+		jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`, file)
+		res.send()
+	} else {
+		res.status(401).send("Unathorised access: user is not admin")
+	}
 })
 
 app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => {
