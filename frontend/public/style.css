@@ -136,6 +136,7 @@ img {
 	overflow: hidden;
 
 	word-wrap: break-word;
+	white-space: pre;
 
 	font-size: 13px;
 }
