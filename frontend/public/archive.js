@@ -1,7 +1,7 @@
 function newArchiveItem(data) {
 	const characterLimit = (!isMobile) ? 45 : 55
 	const oneLineLength = (!isMobile) ? 25 : 44
-	let shortenedText = data.content
+	let shortenedText = data.content.replace(/<\/?[^>]+(>|$)/g, "")
 
 	if (shortenedText.length > characterLimit) {
 		while (shortenedText.length != characterLimit) {
