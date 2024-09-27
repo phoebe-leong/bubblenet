@@ -61,7 +61,7 @@ h1, h4 {
 	margin: 0;
 }
 
-#post-text h1, .feed-item h1 {
+#post-text h1, #post-text h4 {
 	text-align: left;
 }
 
