@@ -338,7 +338,7 @@ app.post("/data/serverconfig.json", (req, res) => {
 		if (req.body.localImageStorage != null && req.body.localImageStorage != undefined) {
 			file.localImageStorage = req.body.localImageStorage
 		}
-		if (req.body.imgurClientId != null && req.body.imgurClientId != undefined && req.body.imgurClientId != "") {
+		if (req.body.imgurClientId.length > 1) {
 			file.imgurClientId = req.body.imgurClientId
 		}
 		jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`, file)
