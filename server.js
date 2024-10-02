@@ -1,3 +1,5 @@
+"use strict"
+
 const express = require("express")
 const jsonfile = require("jsonfile")
 const multer = require("multer")
@@ -12,6 +14,8 @@ const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
 const LOCALSTORAGEON = (accessServerConfig("localImageStorage") != undefined) ? accessServerConfig("localImageStorage") : false
+const BANNEDWORDS = ["fuck", "motherfucker", "faggot", "nigger"]
+const BANNEDWORDSCENSOR = '#'
 
 const app = express()
 const imgur = new ImgurClient({clientId: accessServerConfig("imgurClientId")})
@@ -36,6 +40,28 @@ const multerstorage = multer.diskStorage({
 	}
 })
 const upload = multer({storage: multerstorage})
+
+function removeBannedWords(string) {
+	for (let i = 0; i < string.length; i++) {
+		if (string[i] == ' ' || string[i] == '\n') { continue }
+
+		for (let j = 0; j < BANNEDWORDS.length; j++) {
+			let buffer = ""
+			for (let k = 0; k < BANNEDWORDS[j].length; k++) {
+				buffer += string[i + k]
+			}
+
+			if (buffer.toLowerCase() == BANNEDWORDS[j]) {
+				buffer = buffer.replaceAll(/[a-z]|[A-Z]|[0-9]/g, BANNEDWORDSCENSOR)
+				string = string.substring(0, i) + buffer + string.substring(i + buffer.length, string.length)
+
+				i += buffer.length - 1
+				break
+			}
+		}
+	}
+	return string
+}
 
 function accessServerConfig(value) {
 	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
@@ -369,7 +395,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 	}
 
 	let message = {
-		content: md.render(req.body.content).replace(/<p>||<\/p>/g, ""),
+		content: removeBannedWords(md.render(req.body.content).replace(/<p>||<\/p>/g, "").replace("</p>", "")),
 		views: Number(req.body.views),
 		hasMedia: stringToBool(req.body.hasMedia)
 	}
