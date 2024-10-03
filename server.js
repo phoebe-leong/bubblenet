@@ -405,7 +405,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 		id = generateId()
 	}
 
-	if (req.file != undefined) {
+	if (req.file) {
 		const newfilename = `${id}.${req.file.originalname.split('.')[1]}`
 
 		let flag_acceptable = false
