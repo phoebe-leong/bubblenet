@@ -79,6 +79,7 @@ async function fetchArchive() {
 	if (archive.Archive.length == 0) {
 		const noArchive = document.createElement("p")
 			noArchive.id = "noArchive"
+			noArchive.classList.add("montserrat-regular")
 			noArchive.innerHTML = "There are no archived posts to show."
 		document.getElementById("archive").appendChild(noArchive)
 

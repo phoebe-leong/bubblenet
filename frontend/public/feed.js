@@ -67,6 +67,7 @@ async function fetchFeed() {
 	if (feed.Feed.length == 0) {
 		const noFeed = document.createElement("p")
 			noFeed.id = "noFeed"
+			noFeed.classList.add("montserrat-regular")
 			noFeed.innerHTML = "There are no posts to show. Try <a href='/post/new'>creating one</a>."
 		document.getElementById("feed").appendChild(noFeed)
 
@@ -85,6 +86,7 @@ async function addPins() {
 
 	if (pinned.Pinned.length == 0) {
 		const noPins = document.createElement("p")
+			noPins.classList.add("montserrat-regular")
 			noPins.innerHTML = "There are no pinned posts to show."
 
 		document.getElementById("pinned").appendChild(noPins)
