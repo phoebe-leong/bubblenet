@@ -1,0 +1,28 @@
+h1, h3, p, section {
+	padding: 0px;
+	margin: 0px;
+}
+
+h1 {
+	text-align: center;
+}
+
+h3 {
+	margin-bottom: 5px;
+}
+
+img {
+	width: 500px;
+	height: 300px;
+}
+
+button {
+	cursor: pointer;
+
+	width: 236.28px;
+	height: 32.25px;
+
+	font-size: 15px;
+
+	margin-top: 50px;
+}
