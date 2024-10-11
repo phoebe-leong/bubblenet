@@ -13,12 +13,12 @@ const CHARACTERLIMIT = 650
 const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
-const LOCALSTORAGEON = (accessServerConfig("localImageStorage") != undefined) ? accessServerConfig("localImageStorage") : false
-const BANNEDWORDS = ["fuck", "motherfucker", "faggot", "nigger"]
+const LOCALSTORAGEON = (accessServerConfig().localImageStorage != undefined) ? accessServerConfig().localImageStorage : false
+const BANNEDWORDS = []
 const BANNEDWORDSCENSOR = '#'
 
 const app = express()
-const imgur = new ImgurClient({clientId: accessServerConfig("imgurClientId")})
+const imgur = new ImgurClient({clientId: accessServerConfig().imgurClientId})
 const md = markdown()
 
 const Ids = []
@@ -64,13 +64,7 @@ function removeBannedWords(string) {
 }
 
 function accessServerConfig(value) {
-	const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
-	if (value == "imgurClientId") {
-		return file.imgurClientId
-	} else if (value == "localImageStorage") {
-		return file.localImageStorage
-	}
-	return null
+	return jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
 }
 
 function itemToIndex(item, array) {
@@ -405,7 +399,7 @@ app.post("/data/messages.json", upload.single("mediaFile"), async (req, res) => 
 		id = generateId()
 	}
 
-	if (req.file) {
+	if (!!req.file) {
 		const newfilename = `${id}.${req.file.originalname.split('.')[1]}`
 
 		let flag_acceptable = false
@@ -484,4 +478,5 @@ app.listen(PORT, () => {
 	process.stdout.write('\x1Bc')
 	console.log(portMessage)
 	console.log(portBorder)
+	console.log(LOCALSTORAGEON)
 })
