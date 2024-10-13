@@ -1,5 +1,3 @@
-"use strict"
-
 const express = require("express")
 const jsonfile = require("jsonfile")
 const multer = require("multer")
@@ -14,8 +12,8 @@ const FEEDLIMIT = 30
 const MAXPINS = 5
 const WINCHECKFALSE = (process.platform != "win32")
 const LOCALSTORAGEON = (accessServerConfig().localImageStorage != undefined) ? accessServerConfig().localImageStorage : false
-const BANNEDWORDS = []
-const BANNEDWORDSCENSOR = '#'
+const BANNEDWORDS = accessServerConfig().bannedWords || []
+const BANNEDWORDSCENSOR = accessServerConfig().bannedWordsCensor || '#'
 
 const app = express()
 const imgur = new ImgurClient({clientId: accessServerConfig().imgurClientId})
@@ -355,12 +353,16 @@ app.post("/data/serverconfig.json", (req, res) => {
 		}
 
 		const file = jsonfile.readFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`)
-		if (req.body.localImageStorage != null && req.body.localImageStorage != undefined) {
-			file.localImageStorage = req.body.localImageStorage
+
+		file.localImageStorage = (typeof(req.body.localImageStorage) === "boolean") ? req.body.localImageStorage : false
+		file.imgurClientId = req.body.imgurClientId || file.imgurClientId
+		file.bannedWordsCensor = req.body.bannedWordsCensor || file.bannedWordsCensor
+
+		req.body.bannedWords = req.body.bannedWords.split(',')
+		for (let i = 0; i < req.body.bannedWords.length; i++) {
+			file.bannedWords.push(req.body.bannedWords[i].trim())
 		}
-		if (req.body.imgurClientId.length > 1) {
-			file.imgurClientId = req.body.imgurClientId
-		}
+
 		jsonfile.writeFileSync((WINCHECKFALSE) ? `${__dirname}/serverconfig.json` : `${__dirname}\\serverconfig.json`, file)
 		res.send()
 	} else {
@@ -478,5 +480,4 @@ app.listen(PORT, () => {
 	process.stdout.write('\x1Bc')
 	console.log(portMessage)
 	console.log(portBorder)
-	console.log(LOCALSTORAGEON)
 })
