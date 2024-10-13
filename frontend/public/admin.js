@@ -4,6 +4,9 @@ async function applyChanges() {
 	const pinRemove = document.getElementById("pinRemove").value
 	const imgurClient = document.getElementById("imgurClient").value
 
+	const bannedWords = document.getElementById("bannedWords").value
+	const bannedWordsChar = document.getElementById("bannedWordsChar").value
+
 	const storageOn = document.getElementById("storageOn").checked
 	const storageOff = document.getElementById("storageOff").checked
 
@@ -45,8 +48,8 @@ async function applyChanges() {
 		})
 	}
 
-	if (imgurClient != "" || storageOn || storageOff) {
-		let localStorageOn = undefined
+	if (imgurClient || storageOn || storageOff || bannedWords || bannedWordsChar) {
+		let localStorageOn
 		if (storageOn && !storageOff) { localStorageOn = true }
 		else { localStorageOn = false }
 
@@ -57,7 +60,9 @@ async function applyChanges() {
 			},
 			body: JSON.stringify({
 				imgurClientId: imgurClient,
-				localImageStorage: localStorageOn
+				localImageStorage: localStorageOn,
+				bannedWords: bannedWords,
+				bannedWordsCensor: bannedWordsChar
 			})
 		})
 	}

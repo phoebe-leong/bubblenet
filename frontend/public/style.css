@@ -289,7 +289,7 @@ dialog:focus-visible {
 	width: 12.33em; /* 165px */
 }
 
-#pinAdd, #pinRemove, #imgurClient {
+#pinAdd, #pinRemove, #imgurClient, #bannedWords {
 	width: 16.88em; /* 225px */
 }
 

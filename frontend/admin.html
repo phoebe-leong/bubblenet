@@ -37,10 +37,16 @@
 			<label class="montserrat-regular">Enter post ids to unpin, separated by commas</label><br>
 			<input type="text" id="pinRemove"><br><br>
 
-			<label class="montserrat-regular">Enter Imgur Client Id. Changes will come into effect after server restart.</label><br>
+			<label class="montserrat-regular">Enter Imgur Client Id. Changes will come into effect after server restart</label><br>
 			<input type="text" id="imgurClient"><br><br>
 
-			<label id="localStorageLabel" class="montserrat-regular">Local Image Storage is <strong>ON</strong>. Changes will come into effect after server restart.</label><br>
+			<label class="montserrat-regular">Enter banned words, separated by commas. Changes will come into effect after server restart</label><br>
+			<input type="text" id="bannedWords"><br><br>
+
+			<label class="montserrat-regular">Enter the character to replace the banned words. Changes will come into effect after server restart</label><br>
+			<input type="text" maxlength="1" id="bannedWordsChar"><br><br>
+
+			<label id="localStorageLabel" class="montserrat-regular"></label><br>
 			<input type="radio" id="storageOn" name="localstorage" value="ON">
 			<label class="montserrat-regular">ON</label><br>
 
