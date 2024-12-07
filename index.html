@@ -7,7 +7,6 @@
 		<link rel="shortcut icon" href="media/favicon.png">
 
 		<link rel="stylesheet" href="style.css">
-		<script src="script.js"></script>
 	</head>
 	<body>
 		<h1>BubbleNet</h1><br>
@@ -15,25 +14,29 @@
 		<section id="what-why">
 			<h3>What is BubbleNet</h3>
 			<p>
-				BubbleNet is a bulletin board software meant for small communities (e.g., camps, schools, households, etc), purposely made without users. People on the same WIFI network as the server can view and post items, including images, GIFs, and links. Important posts can also be pinned and unpinned by the admin.
+				BubbleNet is a bulletin board software meant for small communities (e.g., camps, schools, households, etc), purposely made without users.<br>
+				People on the same WIFI network as the server can view and post items, including images, GIFs, and links. Important posts can also be pinned and unpinned by the admin.
 			</p><br>
 			<h3>Why is BubbleNet</h3>
 			<p>
-				BubbleNet came into existence through the idea of combining various aspects of 4chan and Twitter, simplifying the idea of social media down to its core components. Eventually the idea was refined, its name was changed, and now we have today's BubbleNet.
+				BubbleNet came into existence through the idea of combining various aspects of 4chan and Twitter, simplifying the idea of social media down to its core components.<br>
+				Eventually the idea was refined, its name was changed, and now we have today's BubbleNet.
 			</p><br>
 		</section>
 		<section id="screenshots">
 			<h3>Screenshots</h3>
-			<a href="media/feed.png"><img src="media/feed.png"></a>
-			<a href="media/archive.png"><img src="media/archive.png"></a>
-			<a href="media/new-post.png"><img src="media/new-post.png"></a>
-			<a href="media/light-mode.png"><img src="media/light-mode.png"></a>
-			<a href="media/post.png"><img src="media/post.png"></a>
+
+			<img src="media/feed.png" onclick="showDialog(0)">
+			<img src="media/archive.png" onclick="showDialog(1)">
+			<img src="media/new-post.png" onclick="showDialog(2)">
+			<img src="media/light-mode.png" onclick="showDialog(3)">
+			<img src="media/post.png" onclick="showDialog(4)">
 		</section>
 		<section id="get">
 			<center>
 				<a href="https://github.com/phoebe-leong/bubblenet/releases/latest" target="_blank"><button id="download">Download latest version</button></a>
 			</center>
 		</section>
+		<script src="script.js"></script>
 	</body>
 </html>

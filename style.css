@@ -1,3 +1,12 @@
+html {
+	background-color: white;
+	color: #121212;
+
+	font-family: sans-serif;
+
+	padding-left: 10px;
+}
+
 h1, h3, p, section {
 	padding: 0px;
 	margin: 0px;
@@ -5,15 +14,57 @@ h1, h3, p, section {
 
 h1 {
 	text-align: center;
+	font-size: 42px;
+
+	padding-top: 7px;
+	padding-bottom: 35px;
 }
 
 h3 {
-	margin-bottom: 5px;
+	margin-bottom: 8px;
 }
 
-img {
+p {
+	font-size: 14.5px;
+}
+
+#screenshots img {
 	width: 500px;
 	height: 300px;
+
+	cursor: pointer;
+}
+
+dialog {
+	top: 50%;
+	left: 50%;
+
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+
+	position: fixed;
+
+	padding: 0;
+	margin: 0;
+
+	width: 900px;
+	height: 600px;
+
+	overflow: hidden;
+}
+
+dialog::backdrop {
+	backdrop-filter: blur(3px);
+}
+
+dialog img {
+	width: 100%;
+	height: 100%;
+
+	margin: 0;
+	padding: 0;
 }
 
 button {
