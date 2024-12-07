@@ -9,5 +9,4 @@ This platform will hopefully grow to be usable, but is currently in it's most pr
 
 ## installation
 1. First, download [NodeJS](https://nodejs.org/en) if you don't already have it. This will install the NPM package manager as well.
-2. Run ``npm i`` in the project's directory Terminal. This installs all the dependencies that the server needs to run.
-3. To start up the server, enter ``node server.js`` into the Terminal or ``./start``, also in the project directory. This will start running the server code file.
+2. To start up the server, enter ``node server.js`` into the Terminal or ``./start``, also in the project directory. This will start running the server code file, as well as installing any required packages.
