@@ -12,6 +12,12 @@ function createDialogs() {
 			document.body.style.overflow = "auto"
 		})
 
+		dialog.addEventListener("click", e => {
+			if (event.target.tagName != "IMG") {
+				dialog.close()
+			}
+		})
+
 		dialog.appendChild(img)
 		document.body.appendChild(dialog)
 		dialogs.push(dialog)
